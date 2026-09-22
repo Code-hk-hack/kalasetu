@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1B365D">
+  <meta name="description" content="KalaSetu AI — Rural-First Voice-to-Catalog PWA & Fair Market Linkage for Indian Heritage Artisans and Weavers.">
+  <title>KalaSetu AI — Empowering Indian Artisans with Voice AI & Fair Markets</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&family=Noto+Sans+Oriya:wght@400;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./landing.css?v=2">
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="landing-nav">
+    <div class="container nav-wrapper">
+      <a href="#" class="nav-brand">
+        <span class="brand-icon">🏺</span>
+        <div>
+          <span class="brand-title">KalaSetu AI</span>
+          <span class="brand-sih-tag">SIH26090</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features" class="nav-link" id="nav-feat-link">Core Features</a>
+        <a href="#interactive-demo" class="nav-link" id="nav-demo-link">Live Price Math</a>
+        <a href="#clusters" class="nav-link" id="nav-clusters-link">GI Clusters</a>
+        <a href="#impact" class="nav-link" id="nav-impact-link">Artisan Impact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher Selector -->
+        <select id="landing-lang-select" class="btn-lang-dropdown" aria-label="Select Language">
+          <option value="en">English (India)</option>
+          <option value="hi" selected>हिन्दी (Hindi)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+          <option value="mr">मराठी (Marathi)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+          <option value="te">తెలుగు (Telugu)</option>
+          <option value="gu">ગુજરાતી (Gujarati)</option>
+          <option value="kn">ಕನ್ನಡ (Kannada)</option>
+          <option value="or">ଓଡ଼ିଆ (Odia)</option>
+        </select>
+
+        <!-- Direct Launch PWA CTA -->
+        <a href="./index.html" class="btn-primary-cta" id="nav-launch-btn">
+          <span>Launch Kaarigar PWA</span>
+          <span>🚀</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      
+      <!-- Hero Left: Content -->
+      <div class="hero-content">
+        <div class="badge-sih">
+          <span>🇮🇳</span>
+          <span id="hero-sih-badge">MoSJE SIH26090 · Rural-First Artisan Ecosystem</span>
+        </div>
+
+        <h1 class="hero-title" id="hero-title-text">
+          Empowering India's Heritage Artisans with <span class="accent">Voice-First AI</span>
+        </h1>
+
+        <p class="hero-subtitle" id="hero-sub-text">
+          Zero Form Fatigue. Explainable Cost-Plus Pricing. Direct Global Market Linkage. Bridging marginalized rural kaarigars and weavers directly to conscious buyers in their native tongue.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="./index.html" class="btn-hero-launch" id="hero-launch-btn">
+            <span>Open Artisan Mobile App</span>
+            <span>📱</span>
+          </a>
+          <button class="btn-hero-audio" id="btn-listen-vision">
+            <span>🔊</span>
+            <span id="vision-btn-text">Listen to Vision</span>
+          </button>
+        </div>
+
+        <div class="hero-social-proof">
+          <div class="proof-avatars">
+            <div class="avatar-badge">🧵</div>
+            <div class="avatar-badge">🎨</div>
+            <div class="avatar-badge">🏺</div>
+            <div class="avatar-badge">🪡</div>
+          </div>
+          <p class="proof-text" id="proof-text-label">
+            Co-designed with master kaarigars across <strong>Bagru, Sanganer, and Jaipur Blue Pottery</strong> clusters.
+          </p>
+        </div>
+      </div>
+
+      <!-- Hero Right: Mobile App Simulation Mockup -->
+      <div class="hero-mockup-wrapper">
+        <div class="phone-mockup-stage">
+          <div class="floating-badge b1">
+            <span>🌿</span>
+            <div>
+              <div id="badge1-title">Natural Dyes Verified</div>
+              <small style="color: #15803d; font-weight: 600;" id="badge1-sub">Authentic GI Heritage</small>
+            </div>
+          </div>
+
+          <div class="floating-badge b2">
+            <span>💰</span>
+            <div>
+              <div id="badge2-title">Transparent Cost-Plus</div>
+              <small style="color: var(--color-terracotta); font-weight: 600;" id="badge2-sub">+40% Artisan Margin</small>
+            </div>
+          </div>
+
+          <div class="phone-frame">
+            <div class="phone-camera-notch"></div>
+            <div class="phone-screen">
+              <div class="mockup-header">
+                <span style="font-weight: 800; font-size: 14px;">🏺 KalaSetu AI</span>
+                <span style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 999px;">Online</span>
+              </div>
+
+              <div class="mockup-body">
+                <div class="mockup-card">
+                  <span class="mockup-chip" id="mockup-chip-tag">📸 Voice Cataloger</span>
+                  <p style="font-size: 13px; font-weight: 700; color: #1b365d;" id="mockup-craft-title">Bagru Handblock Silk Dupatta</p>
+                  <p style="font-size: 11px; color: #64748b; margin-top: 2px;" id="mockup-craft-sub">Organic Indigo Dye · 2.5m · 3 Days</p>
+                  <div class="mockup-price-row">
+                    <span style="font-size: 11px; color: #64748b;" id="mockup-price-label">Fair Price Range</span>
+                    <span style="font-size: 14px; font-weight: 800; color: #c85a32;">₹1,450 – ₹1,680</span>
+                  </div>
+                </div>
+
+                <div class="mockup-card" style="background: #fff7ed; border-color: rgba(200,90,50,0.3);">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 20px;">🎙️</span>
+                    <div>
+                      <strong style="font-size: 12px; color: #1b365d;" id="mockup-voice-note">"Spent 500 on dyes and sold 2 dupattas today"</strong>
+                      <p style="font-size: 11px; color: #15803d; font-weight: 700;" id="mockup-profit-text">+₹2,500 Net Profit Logged</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 14px;">
+                  <a href="./index.html" style="font-size: 12px; font-weight: 800; color: #c85a32; text-decoration: none;" id="mockup-cta-text">
+                    Tap to open live interactive studio →
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Impact Counter Ribbon -->
+  <section class="stats-ribbon">
+    <div class="container stats-grid">
+      <div class="stat-item">
+        <h3>9+</h3>
+        <p id="stat-lang-label">Indian Regional Languages</p>
+      </div>
+      <div class="stat-item">
+        <h3>100%</h3>
+        <p id="stat-form-label">Zero Form Fatigue (Voice Driven)</p>
+      </div>
+      <div class="stat-item">
+        <h3>42+</h3>
+        <p id="stat-clusters-label">GI Heritage Craft Clusters</p>
+      </div>
+      <div class="stat-item">
+        <h3>3.4x</h3>
+        <p id="stat-uplift-label">Average Kaarigar Income Uplift</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" id="feat-tag">Holistic Rural Empowerment</span>
+        <h2 class="section-title" id="feat-title">Built Ground-Up for Marginalized Artisans</h2>
+        <p class="section-subtitle" id="feat-sub">
+          Eliminating intermediary exploitation, language barriers, and opaque pricing algorithms through human-centered, explainable AI.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">🎙️</div>
+          <h3 id="f1-title">Voice-to-Catalog Studio</h3>
+          <p id="f1-desc">
+            Artisans hold the mic and speak in their mother tongue. Natural Language Processing extracts dimensions, materials, and lead times with zero typing.
+          </p>
+          <span class="feature-pill" id="f1-pill">Voice AI · Zero Form Fatigue</span>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">⚖️</div>
+          <h3 id="f2-title">Explainable Cost-Plus Pricing</h3>
+          <p id="f2-desc">
+            Demystifies pricing with transparent math: Raw Material + Artisan Living Wage + GI Heritage Premium. Artisans always make the final pricing decision.
+          </p>
+          <span class="feature-pill" id="f2-pill">Fair Trade Math · Anti-Exploitation</span>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">📖</div>
+          <h3 id="f3-title">Daily Hisab-Kitab Ledger</h3>
+          <p id="f3-desc">
+            A voice-driven accounting book designed for daily rural commerce. Record expenses, raw material purchases, and daily sales by simply speaking.
+          </p>
+          <span class="feature-pill" id="f3-pill">Offline First · Audio Balance</span>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">🖼️</div>
+          <h3 id="f4-title">AI Room Decor Space Stager</h3>
+          <p id="f4-desc">
+            Neural visualization enabling global urban buyers to stage authentic pottery, quilts, and tapestries onto modern living room mockups in real time.
+          </p>
+          <span class="feature-pill" id="f4-pill">Global Buyer Discovery · WebGL/Canvas</span>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">🔍</div>
+          <h3 id="f5-title">Reels-to-Artisan Matcher</h3>
+          <p id="f5-desc">
+            Reverse visual search connects viral social media screenshots directly to authentic rural craft clusters, bypassing dropshippers and cheap knockoffs.
+          </p>
+          <span class="feature-pill" id="f5-pill">Visual AI · Anti-Counterfeiting</span>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon-box">📶</div>
+          <h3 id="f6-title">100% Offline-First PWA</h3>
+          <p id="f6-desc">
+            Built on IndexedDB and Service Workers. Works flawlessly in remote villages with zero connectivity, auto-syncing when network returns.
+          </p>
+          <span class="feature-pill" id="f6-pill">Rural Ready · 25MB RAM Footprint</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live Price Math Widget -->
+  <section class="container" id="interactive-demo">
+    <div class="demo-section">
+      <div class="demo-grid">
+        <div>
+          <span class="section-tag" id="demo-tag">Try It Live</span>
+          <h2 style="font-size: 32px; font-weight: 800; color: var(--color-indigo); margin-bottom: 14px;" id="demo-title">
+            Interactive Fair Price Calculator
+          </h2>
+          <p style="font-size: 15px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 24px;" id="demo-sub">
+            Experience the explainable math that protects rural kaarigars from undercutting their handcrafted labor. Slide the parameters to see the instant breakdown:
+          </p>
+
+          <div class="calc-box">
+            <div class="calc-slider-group">
+              <div class="slider-label-row">
+                <span id="demo-mat-name">Material & Natural Dye Cost:</span>
+                <span id="demo-mat-label" style="color: var(--color-terracotta);">₹450</span>
+              </div>
+              <input type="range" id="demo-slider-mat" class="calc-slider" min="100" max="2500" step="50" value="450">
+            </div>
+
+            <div class="calc-slider-group">
+              <div class="slider-label-row">
+                <span id="demo-hours-name">Artisan Handcrafting Time:</span>
+                <span id="demo-hours-label" style="color: var(--color-terracotta);">12 Hours</span>
+              </div>
+              <input type="range" id="demo-slider-hours" class="calc-slider" min="2" max="40" step="1" value="12">
+            </div>
+
+            <div class="calc-slider-group">
+              <div class="slider-label-row">
+                <span id="demo-cluster-name">Recognized GI Heritage Cluster:</span>
+                <span style="color: var(--color-indigo);" id="demo-cluster-val">Bagru / Sanganer (+15%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Box -->
+        <div>
+          <div class="calc-result-box">
+            <span class="calc-summary-tag" id="demo-summary-tag">
+              Explainable Pricing Summary
+            </span>
+
+            <div class="calc-cost-row">
+              <p class="calc-cost-label" id="demo-cost-name">Total Production Cost (Materials + Living Wage):</p>
+              <h4 id="demo-total-cost" class="calc-cost-val">₹1,410</h4>
+            </div>
+
+            <div class="calc-retail-divider">
+              <p class="calc-retail-label" id="demo-retail-name">Recommended Fair Retail Price:</p>
+              <div class="calc-price-big" id="demo-retail-price">₹1,620 – ₹1,800</div>
+              <p class="calc-benchmark-note" id="demo-benchmark-note">
+                ✓ Ensures ₹80/hr living wage benchmark + 15% heritage preservation royalty.
+              </p>
+            </div>
+
+            <div class="calc-cta-row">
+              <a href="./index.html" class="btn-primary-cta btn-calc-launch" id="demo-cta-btn">
+                <span>Try in Full Mobile Studio</span>
+                <span>📱</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supported GI Clusters -->
+  <section class="section" id="clusters">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" id="clusters-tag">Geographical Indication Provenance</span>
+        <h2 class="section-title" id="clusters-title">Safeguarding Traditional Craft Clusters</h2>
+        <p class="section-subtitle" id="clusters-sub">
+          Authenticating lineage and protecting traditional knowledge from machine-made industrial imitation.
+        </p>
+      </div>
+
+      <div class="clusters-grid">
+        <div class="cluster-card">
+          <div class="cluster-emoji">🧣</div>
+          <h4 id="c1-title">Bagru & Sanganer</h4>
+          <p id="c1-desc">Rajasthan · Natural Indigo Block Prints</p>
+        </div>
+
+        <div class="cluster-card">
+          <div class="cluster-emoji">🏺</div>
+          <h4 id="c2-title">Jaipur Blue Pottery</h4>
+          <p id="c2-desc">Rajasthan · Quartz & Natural Glaze Craft</p>
+        </div>
+
+        <div class="cluster-card">
+          <div class="cluster-emoji">🧸</div>
+          <h4 id="c3-title">Channapatna Toys</h4>
+          <p id="c3-desc">Karnataka · Non-toxic Lacquered Wood</p>
+        </div>
+
+        <div class="cluster-card">
+          <div class="cluster-emoji">🧵</div>
+          <h4 id="c4-title">Pochampally Ikat</h4>
+          <p id="c4-desc">Telangana · Geometric Tie-and-Dye Weaves</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kaarigar Voice Testimonials -->
+  <section class="section" id="impact" style="background: #ffffff;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" id="impact-tag">Voices From The Loom</span>
+        <h2 class="section-title" id="impact-title">What Indian Kaarigars Say</h2>
+        <p class="section-subtitle" id="impact-sub">
+          Real feedback from artisans on how voice AI changed their daily income and dignity.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="testimonial-quote" id="t1-quote">
+            "Earlier, local traders bought my natural dye bedsheets for ₹600 and sold them in Delhi for ₹3,000. Now, I speak into KalaSetu AI in Hindi, get my fair price calculation, and sell directly on WhatsApp for ₹1,650."
+          </p>
+          <div class="artisan-meta">
+            <div class="artisan-photo">🪡</div>
+            <div class="artisan-info">
+              <strong id="t1-name">Ramji Lal Meena</strong>
+              <span id="t1-cluster">Master Block Printer · Bagru Cluster, Rajasthan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-quote" id="t2-quote">
+            "I never went to English school, so ecommerce portals felt impossible. With KalaSetu, I just tap the speaker button and the phone speaks back to me. My daughter helps me pack orders every weekend."
+          </p>
+          <div class="artisan-meta">
+            <div class="artisan-photo">🏺</div>
+            <div class="artisan-info">
+              <strong id="t2-name">Meera Devi</strong>
+              <span id="t2-cluster">Blue Pottery Artisan · Kot Jewar, Jaipur</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Big Bottom CTA -->
+  <section class="container">
+    <div class="cta-banner">
+      <h2 id="cta-title">Experience KalaSetu AI on Your Mobile Device</h2>
+      <p id="cta-sub">
+        Installable Progressive Web App (PWA) with zero download footprint. Works 100% offline with your custom regional voice model.
+      </p>
+      <a href="./index.html" class="btn-primary-cta" id="cta-btn" style="font-size: 16px; padding: 14px 32px;">
+        <span>Launch Kaarigar Application Now</span>
+        <span>🚀</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>🏺 KalaSetu AI</h3>
+          <p id="footer-desc">
+            Developed for Smart India Hackathon 2024 · Ministry of Social Justice and Empowerment (Problem Statement SIH26090). Empowering marginalized weavers, Scheduled Castes, Scheduled Tribes, and rural craft clusters across India.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <h4 id="footer-col-modules">Modules</h4>
+          <ul>
+            <li><a href="./index.html">Voice Cataloger</a></li>
+            <li><a href="./index.html">Fair Price Assistant</a></li>
+            <li><a href="./index.html">Hisab-Kitab Ledger</a></li>
+            <li><a href="./index.html">Space Stager</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4 id="footer-col-gov">Government Links</h4>
+          <ul>
+            <li><a href="https://socialjustice.gov.in" target="_blank" rel="noopener">MoSJE Portal</a></li>
+            <li><a href="https://trifed.tribal.gov.in" target="_blank" rel="noopener">TRIFED India</a></li>
+            <li><a href="https://odop.nic.in" target="_blank" rel="noopener">One District One Product</a></li>
+            <li><a href="https://sih.gov.in" target="_blank" rel="noopener">Smart India Hackathon</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4 id="footer-col-tech">Tech & Specs</h4>
+          <ul>
+            <li><a href="#">Lightweight Vanilla JS</a></li>
+            <li><a href="#">IndexedDB Storage</a></li>
+            <li><a href="#">Offline Service Worker</a></li>
+            <li><a href="#">Pluggable Speech AI</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p id="footer-copy">© 2024–2026 KalaSetu AI · MoSJE SIH26090. Cultural Heritage Preservation Initiative.</p>
+        <p><a href="./index.html" id="footer-launch" style="color: var(--color-marigold); font-weight: 700; text-decoration: none;">Launch Artisan PWA →</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Demo Script & Multilingual Switcher -->
+  <script type="module">
+    // Auto-purge stale cache if present
+    if (typeof caches !== 'undefined') {
+      caches.delete('kalasetu-ai-v1').then(res => { if (res) console.log('Purged stale v1 cache'); });
+    }
+
+    import { landingTranslations } from './js/landingTranslations.js?v=2';
+
+    // 1. Dynamic Interactive Price Calculator on Landing Page
+    const matSlider = document.getElementById('demo-slider-mat');
+    const hoursSlider = document.getElementById('demo-slider-hours');
+    const matLabel = document.getElementById('demo-mat-label');
+    const hoursLabel = document.getElementById('demo-hours-label');
+    const totalCostEl = document.getElementById('demo-total-cost');
+    const retailPriceEl = document.getElementById('demo-retail-price');
+
+    function updateDemoCalc() {
+      const mat = parseInt(matSlider.value, 10);
+      const hours = parseInt(hoursSlider.value, 10);
+      const wageRate = 80; // ₹80/hour
+      const labor = hours * wageRate;
+      const baseCost = mat + labor;
+      const giHeritagePremium = Math.round(baseCost * 0.15);
+      const totalCost = baseCost + giHeritagePremium;
+      const retailMin = Math.round(totalCost * 1.15);
+      const retailMax = Math.round(totalCost * 1.30);
+
+      matLabel.textContent = `₹${mat}`;
+      hoursLabel.textContent = `${hours} Hours`;
+      totalCostEl.textContent = `₹${totalCost.toLocaleString('en-IN')}`;
+      retailPriceEl.textContent = `₹${retailMin.toLocaleString('en-IN')} – ₹${retailMax.toLocaleString('en-IN')}`;
+    }
+
+    matSlider.addEventListener('input', updateDemoCalc);
+    hoursSlider.addEventListener('input', updateDemoCalc);
+    updateDemoCalc();
+
+    // 2. Comprehensive 9-Language Translation Engine for Landing Page
+    const langSelect = document.getElementById('landing-lang-select');
+
+    // Language locale mapping for TTS
+    const langVoiceMap = {
+      en: 'en-IN', hi: 'hi-IN', bn: 'bn-IN', mr: 'mr-IN',
+      ta: 'ta-IN', te: 'te-IN', gu: 'gu-IN', kn: 'kn-IN', or: 'or-IN'
+    };
+
+    function applyLandingLanguage(code) {
+      const d = landingTranslations[code] || landingTranslations.en;
+
+      // Nav
+      document.getElementById('nav-feat-link').textContent = d.nav.feat;
+      document.getElementById('nav-demo-link').textContent = d.nav.demo;
+      document.getElementById('nav-clusters-link').textContent = d.nav.clusters;
+      document.getElementById('nav-impact-link').textContent = d.nav.impact;
+      document.getElementById('nav-launch-btn').innerHTML = `<span>${d.nav.launch}</span>`;
+
+      // Hero
+      document.getElementById('hero-sih-badge').textContent = d.hero.sihBadge;
+      document.getElementById('hero-title-text').innerHTML = d.hero.title;
+      document.getElementById('hero-sub-text').textContent = d.hero.subtitle;
+      document.getElementById('hero-launch-btn').innerHTML = `<span>${d.hero.launchBtn}</span>`;
+      document.getElementById('vision-btn-text').textContent = d.hero.audioBtn;
+      document.getElementById('proof-text-label').innerHTML = d.hero.proof;
+
+      // Floating Badges & Mockup
+      document.getElementById('badge1-title').textContent = d.hero.badge1Title;
+      document.getElementById('badge1-sub').textContent = d.hero.badge1Sub;
+      document.getElementById('badge2-title').textContent = d.hero.badge2Title;
+      document.getElementById('badge2-sub').textContent = d.hero.badge2Sub;
+      document.getElementById('mockup-chip-tag').textContent = `📸 ${d.features.f1Title || 'Voice Cataloger'}`;
+      document.getElementById('mockup-craft-title').textContent = d.hero.mockupCraft;
+      document.getElementById('mockup-craft-sub').textContent = d.hero.mockupDetails;
+      document.getElementById('mockup-price-label').textContent = d.hero.mockupPriceLabel;
+      document.getElementById('mockup-voice-note').textContent = d.hero.mockupVoiceNote;
+      document.getElementById('mockup-profit-text').textContent = d.hero.mockupProfit;
+      document.getElementById('mockup-cta-text').textContent = d.hero.mockupCta;
+
+      // Stats
+      document.getElementById('stat-lang-label').textContent = d.stats.lang;
+      document.getElementById('stat-form-label').textContent = d.stats.form;
+      document.getElementById('stat-clusters-label').textContent = d.stats.clusters;
+      document.getElementById('stat-uplift-label').textContent = d.stats.uplift;
+
+      // Features
+      document.getElementById('feat-tag').textContent = d.features.tag;
+      document.getElementById('feat-title').textContent = d.features.title;
+      document.getElementById('feat-sub').textContent = d.features.subtitle;
+      document.getElementById('f1-title').textContent = d.features.f1Title;
+      document.getElementById('f1-desc').textContent = d.features.f1Desc;
+      document.getElementById('f1-pill').textContent = d.features.f1Pill;
+      document.getElementById('f2-title').textContent = d.features.f2Title;
+      document.getElementById('f2-desc').textContent = d.features.f2Desc;
+      document.getElementById('f2-pill').textContent = d.features.f2Pill;
+      document.getElementById('f3-title').textContent = d.features.f3Title;
+      document.getElementById('f3-desc').textContent = d.features.f3Desc;
+      document.getElementById('f3-pill').textContent = d.features.f3Pill;
+      document.getElementById('f4-title').textContent = d.features.f4Title;
+      document.getElementById('f4-desc').textContent = d.features.f4Desc;
+      document.getElementById('f4-pill').textContent = d.features.f4Pill;
+      document.getElementById('f5-title').textContent = d.features.f5Title;
+      document.getElementById('f5-desc').textContent = d.features.f5Desc;
+      document.getElementById('f5-pill').textContent = d.features.f5Pill;
+      document.getElementById('f6-title').textContent = d.features.f6Title;
+      document.getElementById('f6-desc').textContent = d.features.f6Desc;
+      document.getElementById('f6-pill').textContent = d.features.f6Pill;
+
+      // Calculator
+      document.getElementById('demo-tag').textContent = d.calc.tag;
+      document.getElementById('demo-title').textContent = d.calc.title;
+      document.getElementById('demo-sub').textContent = d.calc.subtitle;
+      document.getElementById('demo-mat-name').textContent = d.calc.matLabel;
+      document.getElementById('demo-hours-name').textContent = d.calc.hoursLabel;
+      document.getElementById('demo-cluster-name').textContent = d.calc.clusterLabel;
+      document.getElementById('demo-cluster-val').textContent = d.calc.clusterVal;
+      document.getElementById('demo-summary-tag').textContent = d.calc.summaryTag;
+      document.getElementById('demo-cost-name').textContent = d.calc.costLabel;
+      document.getElementById('demo-retail-name').textContent = d.calc.retailLabel;
+      document.getElementById('demo-benchmark-note').textContent = d.calc.benchmark;
+      document.getElementById('demo-cta-btn').textContent = d.calc.btn;
+
+      // Clusters
+      document.getElementById('clusters-tag').textContent = d.clusters.tag;
+      document.getElementById('clusters-title').textContent = d.clusters.title;
+      document.getElementById('clusters-sub').textContent = d.clusters.subtitle;
+      document.getElementById('c1-title').textContent = d.clusters.c1Title;
+      document.getElementById('c1-desc').textContent = d.clusters.c1Desc;
+      document.getElementById('c2-title').textContent = d.clusters.c2Title;
+      document.getElementById('c2-desc').textContent = d.clusters.c2Desc;
+      document.getElementById('c3-title').textContent = d.clusters.c3Title;
+      document.getElementById('c3-desc').textContent = d.clusters.c3Desc;
+      document.getElementById('c4-title').textContent = d.clusters.c4Title;
+      document.getElementById('c4-desc').textContent = d.clusters.c4Desc;
+
+      // Testimonials
+      document.getElementById('impact-tag').textContent = d.impact.tag;
+      document.getElementById('impact-title').textContent = d.impact.title;
+      document.getElementById('impact-sub').textContent = d.impact.subtitle;
+      document.getElementById('t1-quote').textContent = d.impact.t1Quote;
+      document.getElementById('t1-name').textContent = d.impact.t1Name;
+      document.getElementById('t1-cluster').textContent = d.impact.t1Cluster;
+      document.getElementById('t2-quote').textContent = d.impact.t2Quote;
+      document.getElementById('t2-name').textContent = d.impact.t2Name;
+      document.getElementById('t2-cluster').textContent = d.impact.t2Cluster;
+
+      // Bottom CTA
+      document.getElementById('cta-title').textContent = d.cta.title;
+      document.getElementById('cta-sub').textContent = d.cta.subtitle;
+      document.getElementById('cta-btn').innerHTML = `<span>${d.cta.btn}</span>`;
+
+      // Footer
+      document.getElementById('footer-desc').textContent = d.footer.desc;
+      document.getElementById('footer-col-modules').textContent = d.footer.modules;
+      document.getElementById('footer-col-gov').textContent = d.footer.gov;
+      document.getElementById('footer-col-tech').textContent = d.footer.tech;
+      document.getElementById('footer-copy').textContent = d.footer.copy;
+      document.getElementById('footer-launch').textContent = d.footer.launchLink;
+
+      // Persist across app for seamless launch
+      localStorage.setItem('kalasetu_lang', code);
+    }
+
+    // Initialize from localStorage or Bengali/Hindi
+    const savedLang = localStorage.getItem('kalasetu_lang') || 'bn';
+    langSelect.value = savedLang;
+    applyLandingLanguage(savedLang);
+
+    langSelect.addEventListener('change', (e) => {
+      applyLandingLanguage(e.target.value);
+    });
+
+    // 3. Audio Speech Synthesis for Vision in Mother Tongue
+    document.getElementById('btn-listen-vision').addEventListener('click', () => {
+      if (!('speechSynthesis' in window)) {
+        alert('Voice synthesis not supported in this browser.');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const code = langSelect.value;
+      const d = landingTranslations[code] || landingTranslations.en;
+      const utterance = new SpeechSynthesisUtterance(d.speech);
+      utterance.lang = langVoiceMap[code] || 'hi-IN';
+      utterance.rate = 0.92;
+      window.speechSynthesis.speak(utterance);
+    });
+
+  </script>
+</body>
+</html>

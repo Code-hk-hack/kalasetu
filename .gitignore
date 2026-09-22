@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tooling and IDE caches
+.agents/
+graphify-out/
+.vscode/
+.idea/
+
+# Environment / Local Secrets
+.env
+.env.local
+*.secret
+app/js/core/aiConfig.local.js
+
+# OS generated files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+.DS_Store

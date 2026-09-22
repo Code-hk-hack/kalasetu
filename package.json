@@ -1,0 +1,21 @@
+{
+  "name": "kalasetu-ai",
+  "version": "2.0.0",
+  "description": "KalaSetu AI — Rural-First Voice-to-Catalog PWA for Indian Artisans (SIH26090)",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/differentiation_features.test.js",
+    "start": "python -m http.server 8080 --directory app"
+  },
+  "keywords": [
+    "sih26090",
+    "artisan",
+    "handicraft",
+    "voice-ai",
+    "geofencing",
+    "claimsafe",
+    "fairprice"
+  ],
+  "author": "KalaSetu AI Team",
+  "license": "MIT"
+}

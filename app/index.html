@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script>
+    // Ensure fresh code delivery during active multi-model AI setup
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        for (let r of regs) r.unregister();
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(keys => {
+        for (let k of keys) caches.delete(k);
+      });
+    }
+  </script>
+  <meta name="theme-color" content="#1B365D">
+  <meta name="description" content="KalaSetu AI — Rural-First Multilingual Voice-to-Catalog PWA for Indian Artisans and Weavers.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>KalaSetu AI — Rural Artisan Business Manager</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&family=Noto+Sans+Oriya:wght@400;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="stylesheet" href="./styles.css?v=6">
+</head>
+<body>
+
+  <!-- Toast Notification Portal -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Main Mobile PWA Shell -->
+  <div class="app-container">
+    
+    <!-- Top Sticky Header -->
+    <header class="app-header">
+      <div class="brand-wrapper">
+        <span class="brand-logo" aria-hidden="true">🏺</span>
+        <div>
+          <h1 class="brand-name" id="app-title">KalaSetu AI</h1>
+          <p class="brand-tagline" id="app-tagline">Rural Artisan Business Manager</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="./landing.html" class="btn-landing-link" title="Explore KalaSetu AI Vision & Landing Page" style="text-decoration: none; font-size: 12px; font-weight: 700; color: var(--color-indigo); padding: 6px 10px; border-radius: var(--radius-full); border: 1px solid var(--color-border); background: #ffffff; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;">
+          <span>🏛️</span>
+          <span>Portal</span>
+        </a>
+        <button class="btn-lang-toggle" id="btn-lang-toggle" aria-label="Toggle between Hindi and English">
+          <span id="lang-toggle-text">हिन्दी</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Network Connectivity & Offline Sync Bar (Feature 6) -->
+    <div class="network-status-bar" id="network-status">
+      <div class="network-left" style="display: flex; align-items: center; gap: 6px;">
+        <span class="status-dot"></span>
+        <span id="network-status-text">Online · Ready to Sync</span>
+      </div>
+      <button class="btn-sync-now" id="btn-sync-now" title="Sync local drafts with cloud" style="background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); border-radius: 12px; color: inherit; font-size: 10px; font-weight: 700; padding: 3px 8px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+        🔄 <span>Sync Now</span>
+      </button>
+    </div>
+
+    <!-- Dynamic Module Mount Container -->
+    <main class="app-content" id="module-container" role="main">
+      <!-- Active feature module injected here -->
+    </main>
+
+    <!-- Dynamic Bottom Navigation Bar -->
+    <nav class="bottom-nav" id="bottom-nav" role="tablist" aria-label="Main Navigation">
+      <!-- Navigation items rendered dynamically from featureRegistry -->
+    </nav>
+
+  </div>
+
+  <!-- Application Bootstrap -->
+  <script type="module">
+    import { appState } from './js/core/appState.js?v=6';
+    import { featureRegistry } from './js/core/featureRegistry.js?v=6';
+    import { offlineStorage, SYNC_STATUS } from './js/core/offlineStorage.js?v=6';
+    import { VoiceCatalogerModule } from './js/modules/voiceCataloger.js?v=6';
+    import { PricingAssistantModule } from './js/modules/pricingAssistant.js?v=6';
+    import { HisabKitabModule } from './js/modules/hisabKitab.js?v=4';
+    import { MarketShowcaseModule } from './js/modules/marketShowcase.js?v=6';
+    import { SettingsModule } from './js/modules/settings.js?v=6';
+    import { FacilitatorModule } from './js/modules/facilitatorModule.js?v=6';
+
+    // 1. Register Core & Extension Modules with Feature Registry
+    featureRegistry.register(VoiceCatalogerModule);
+    featureRegistry.register(PricingAssistantModule);
+    featureRegistry.register(HisabKitabModule);
+    featureRegistry.register(MarketShowcaseModule);
+    featureRegistry.register(SettingsModule);
+    featureRegistry.register(FacilitatorModule);
+
+    // Expose for console testing and future modular plugins
+    window.featureRegistry = featureRegistry;
+    window.appState = appState;
+    window.offlineStorage = offlineStorage;
+
+    const moduleContainer = document.getElementById('module-container');
+    const bottomNav = document.getElementById('bottom-nav');
+    const langToggleBtn = document.getElementById('btn-lang-toggle');
+    const langToggleText = document.getElementById('lang-toggle-text');
+    const networkBar = document.getElementById('network-status');
+    const networkText = document.getElementById('network-status-text');
+    const btnSyncNow = document.getElementById('btn-sync-now');
+    const appTitle = document.getElementById('app-title');
+    const appTagline = document.getElementById('app-tagline');
+
+    // 2. Render Dynamic Navigation Tabs
+    function renderNavigation() {
+      const activeId = featureRegistry.activeFeatureId || 'cataloger';
+      const userRole = appState.get('userRole') || 'artisan';
+      // Only display Facilitator tab in bottom dock if in facilitator role (keeps standard artisan UI uncluttered)
+      const features = featureRegistry.getAll().filter(feat => {
+        if (feat.id === 'facilitator') {
+          return userRole === 'facilitator';
+        }
+        return true;
+      });
+      
+      bottomNav.innerHTML = features.map(feat => {
+        const isActive = feat.id === activeId;
+        const title = appState.t(feat.titleKey, feat.titleKey);
+        return `
+          <button class="nav-item ${isActive ? 'active' : ''}" data-feature="${feat.id}" role="tab" aria-selected="${isActive}">
+            <span class="nav-icon">${feat.icon || '✨'}</span>
+            <span class="nav-label">${title}</span>
+          </button>
+        `;
+      }).join('');
+
+      // Attach click listeners to tabs
+      bottomNav.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const featureId = btn.getAttribute('data-feature');
+          switchTab(featureId);
+        });
+      });
+    }
+
+    // 2.5 Bind Manual Sync Button (Feature 6)
+    btnSyncNow?.addEventListener('click', async () => {
+      networkText.textContent = 'Syncing... (सिंक हो रहा है)';
+      await offlineStorage.syncAllPending();
+    });
+
+    appState.on('syncStateChange', (state) => {
+      networkText.textContent = state;
+    });
+
+    appState.on('userRole', () => {
+      renderNavigation();
+    });
+
+    // 3. Switch Tab & Mount Feature
+    function switchTab(featureId) {
+      if (!featureId) return;
+      featureRegistry.mountActive(featureId, moduleContainer);
+      if (appState.get('activeTab') !== featureId) {
+        appState.state.activeTab = featureId;
+      }
+      renderNavigation();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 4. Update Header UI on Language Change
+    const langNames = {
+      en: 'English', hi: 'हिन्दी', bn: 'বাংলা', mr: 'मराठी',
+      ta: 'தமிழ்', te: 'తెలుగు', gu: 'ગુજરાતી', kn: 'ಕನ್ನಡ', or: 'ଓଡ଼ିଆ'
+    };
+
+    function updateHeaderTexts() {
+      const lang = appState.get('language');
+      
+      langToggleText.textContent = langNames[lang] || '🌐 Language';
+      appTitle.textContent = appState.t('appName');
+      appTagline.textContent = appState.t('tagline');
+      
+      updateNetworkBar(appState.get('online'));
+      renderNavigation();
+    }
+
+    // 5. Update Network Status Bar
+    function updateNetworkBar(isOnline) {
+      if (isOnline) {
+        networkBar.classList.remove('offline');
+        networkText.textContent = appState.t('onlineStatus');
+      } else {
+        networkBar.classList.add('offline');
+        networkText.textContent = appState.t('offlineStatus');
+      }
+    }
+
+    // 6. Bind Quick Language Button - opens Settings module for 9-language selector
+    langToggleBtn.addEventListener('click', () => {
+      switchTab('settings');
+    });
+
+    // 7. Subscribe to AppState Events
+    appState.on('language', () => {
+      updateHeaderTexts();
+      // Re-mount active module in new language
+      if (featureRegistry.activeFeatureId) {
+        featureRegistry.mountActive(featureRegistry.activeFeatureId, moduleContainer);
+      }
+    });
+
+    appState.on('networkChanged', (isOnline) => {
+      updateNetworkBar(isOnline);
+    });
+
+    appState.on('activeTab', (tab) => {
+      switchTab(tab);
+    });
+
+    // 9. Initial Launch
+    updateHeaderTexts();
+    switchTab('cataloger');
+
+  </script>
+</body>
+</html>
