@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "node tests/differentiation_features.test.js",
-    "start": "python -m http.server 8080 --directory app"
+    "start": "python -m http.server 8080 --directory app",
+    "dev": "python -m http.server 8080 --directory app"
   },
   "keywords": [
     "sih26090",
