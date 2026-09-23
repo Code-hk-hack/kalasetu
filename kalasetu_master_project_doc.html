@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KalaSetu AI — Master Project Document (SIH26090)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 16mm 14mm 16mm 14mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    line-height: 1.55;
+    font-size: 12.5px;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Cover Banner */
+  .cover-banner {
+    background: linear-gradient(135deg, #090d16 0%, #1e1b4b 45%, #312e81 80%, #4338ca 100%);
+    color: #ffffff;
+    padding: 34px 38px;
+    border-radius: 16px;
+    margin-bottom: 22px;
+    box-shadow: 0 12px 30px -8px rgba(15, 23, 42, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover-banner::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .banner-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .sih-badge {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.6);
+    color: #fef08a;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+
+  .date-badge {
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  h1.project-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .project-tagline {
+    font-size: 14px;
+    color: #e2e8f0;
+    margin: 0 0 16px 0;
+    font-weight: 500;
+    max-width: 95%;
+    line-height: 1.45;
+  }
+
+  .formula-ribbon {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fef3c7;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .meta-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .meta-stat-item .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .meta-stat-item .value {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  /* Cards */
+  .doc-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f1f5f9;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .card-title span.icon {
+    background: #e0e7ff;
+    color: #4338ca;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  /* Problem vs Solution Comparison Table */
+  .grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 10px 0;
+  }
+
+  .problem-box {
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-left: 4px solid #e53e3e;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .problem-box h4 {
+    color: #9b2c2c;
+    margin: 0 0 6px 0;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .solution-box {
+    background: #f0fff4;
+    border: 1px solid #c6f6d5;
+    border-left: 4px solid #38a169;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+
+  .solution-box h4 {
+    color: #22543d;
+    margin: 0 0 6px 0;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  /* Feature Grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .feature-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-top: 3px solid #6366f1;
+  }
+
+  .feature-item.accent-gold {
+    border-top-color: #f59e0b;
+  }
+
+  .feature-item.accent-emerald {
+    border-top-color: #10b981;
+  }
+
+  .feature-item.accent-rose {
+    border-top-color: #f43f5e;
+  }
+
+  .feature-title {
+    font-weight: 800;
+    font-size: 12.5px;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .feature-desc {
+    color: #475569;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+
+  /* Tables */
+  table.doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 11.5px;
+  }
+
+  table.doc-table th {
+    background: #f8fafc;
+    color: #334155;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  table.doc-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .badge-emerald { background: #d1fae5; color: #065f46; }
+  .badge-indigo { background: #e0e7ff; color: #3730a3; }
+  .badge-amber { background: #fef3c7; color: #92400e; }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+
+  /* Architecture Box */
+  pre.arch-flow {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    line-height: 1.4;
+    overflow-x: auto;
+    border: 1px solid #334155;
+    margin: 8px 0;
+  }
+
+  /* Page Break Rule */
+  .page-break {
+    page-break-after: always;
+  }
+
+  .footer-bar {
+    text-align: center;
+    font-size: 10.5px;
+    color: #94a3b8;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- PAGE 1: COVER & EXECUTIVE SUMMARY -->
+  <div class="cover-banner">
+    <div class="banner-top">
+      <div class="sih-badge">Smart India Hackathon (SIH26090) Master Architecture</div>
+      <div class="date-badge">September 2026 • Official Platform Blueprint</div>
+    </div>
+
+    <h1 class="project-title">KalaSetu AI (कलासेतु)</h1>
+    <div class="project-tagline">
+      Next-Generation Rural Artisan Market Linkage, Conversational Cataloging, Verifiable Provenance, and Conscious Heritage Commerce Ecosystem.
+    </div>
+
+    <div class="formula-ribbon">
+      <span>✨ Core Ecosystem Direction:</span>
+      Discover ➔ Understand the Story ➔ Experience the Craft ➔ Support the Artisan ➔ Purchase ➔ Continue Supporting
+    </div>
+
+    <div class="meta-stats-grid">
+      <div class="meta-stat-item">
+        <div class="label">Target Community</div>
+        <div class="value">7M+ Indian Rural Artisans</div>
+      </div>
+      <div class="meta-stat-item">
+        <div class="label">Primary Innovation</div>
+        <div class="value">Voice-to-Catalog & Provenance</div>
+      </div>
+      <div class="meta-stat-item">
+        <div class="label">AI Runtime Cost</div>
+        <div class="value">100% Free / Open Source</div>
+      </div>
+      <div class="meta-stat-item">
+        <div class="label">Delivery Modality</div>
+        <div class="value">Android APK & Offline PWA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: THE CORE PROBLEM & MARKET LOOPHOLES -->
+  <div class="doc-card">
+    <div class="card-header">
+      <h2 class="card-title"><span class="icon">🛑</span> Section 1: The Critical Problem & Existing Market Loopholes</h2>
+    </div>
+
+    <p style="margin-top:0;">
+      India’s traditional handicrafts and handlooms represent the country's second-largest employment sector after agriculture. Despite immense global demand, the rural artisans who preserve this heritage face systemic exclusion from the digital economy.
+    </p>
+
+    <div class="grid-2col">
+      <div class="problem-box">
+        <h4>1. The "Retailer-Connection" Trap</h4>
+        Existing e-commerce giants (Amazon Karigar, Etsy, Flipkart Samarth) primarily connect buyers with urban retailers and aggregators. The rural creator remains anonymous, invisible, and dependent on exploitative middlemen who take 60%–70% margins.
+      </div>
+      <div class="solution-box">
+        <h4>KalaSetu's Direct Artisan Attribution</h4>
+        Zero-middleman direct linkage. Every product features an immutable digital <strong>Artisan Pehchan Card</strong>, direct QR contact, and personal audio lineage. Buyers connect directly with the maker.
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <div class="problem-box">
+        <h4>2. The Digital Literacy & Form Barrier</h4>
+        Conventional seller portals require typing, complex SKU categorization, GST details, English descriptions, and high-spec desktop setups—impossible for rural artisans.
+      </div>
+      <div class="solution-box">
+        <h4>Voice-First Vernacular Cataloging</h4>
+        The artisan speaks in their local dialect for 10 seconds: <em>"बगरू हैंड-ब्लॉक दुपट्टा, प्राकृतिक नील रंग, 2 दिन लगे, 1200 रुपये"</em>. KalaSetu’s AI extracts, structures, and creates luxury listings instantly.
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <div class="problem-box">
+        <h4>3. Counterfeits & Unverifiable Claims</h4>
+        Industrial powerlooms and factory machine-prints sell cheap polyester as "Pure Handwoven Silk" or "Natural Indigo", destroying the market value of authentic handmade crafts.
+      </div>
+      <div class="solution-box">
+        <h4>ClaimSafe AI & Verifiable Product Passport</h4>
+        AI scans 16+ high-risk claims, enforces hard publishing gates, and issues a tamper-evident Product Passport verifying craft technique, materials, and GI heritage cluster.
+      </div>
+    </div>
+
+    <div class="grid-2col">
+      <div class="problem-box">
+        <h4>4. The Financial Blindspot (Unclaimed Schemes)</h4>
+        Over ₹13,000 Cr in government support (PM Vishwakarma, Pehchan IDs, Mudra loans) remains unclaimed by rural artisans due to lack of awareness and complex paperwork.
+      </div>
+      <div class="solution-box">
+        <h4>Kala Funds Financial Aid Hub</h4>
+        An integrated scheme engine where artisans discover eligible welfare programs, toolkits, collateral-free credit, and NGO grants in 1 tap directly from their phone.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 2: COMPLETE MASTER FEATURE CATALOG -->
+  <div class="doc-card">
+    <div class="card-header">
+      <h2 class="card-title"><span class="icon">⚡</span> Section 2: Complete KalaSetu AI Master Feature Catalog</h2>
+      <span class="badge badge-indigo">16 Verified Features</span>
+    </div>
+
+    <div class="feature-grid">
+      <!-- Feature 1 -->
+      <div class="feature-item accent-gold">
+        <div class="feature-title">🎙️ 1. Voice-to-Catalog Smart AI</div>
+        <div class="feature-desc">
+          Multilingual speech recognition (14+ Indian dialects). Converts casual voice notes into structured product drafts with title, materials, dimensions, and craft classification.
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-item accent-emerald">
+        <div class="feature-title">🛡️ 2. ClaimSafe AI Verification</div>
+        <div class="feature-desc">
+          Scans 16+ sensitive claims (<em>100% pure silk</em>, <em>GI Tagged</em>, <em>Natural dye</em>). Hard publishing validation gate and public text sanitizer to prevent buyer misrepresentation.
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-item accent-gold">
+        <div class="feature-title">⚖️ 3. FairPrice Guard & Wage Defense</div>
+        <div class="feature-desc">
+          Cost-plus formula calculator enforcing fair artisan hourly rates: <code>Cost = Raw Materials + (Hours × Rate) + Overhead</code>. Warns against ₹0 labor and predatory middleman discounts.
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-item accent-emerald">
+        <div class="feature-title">🛂 4. Verifiable Product Passport</div>
+        <div class="feature-desc">
+          QR-code enabled digital provenance certificate. Displays verified material claims, GI cluster attribution, artisan lineage story, and strict privacy consent defaults.
+        </div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-item accent-rose">
+        <div class="feature-title">📸 5. Truthful Image Studio</div>
+        <div class="feature-desc">
+          Safe image enhancement policy (strictly non-synthetic, preserves authentic handmade imperfections). Live before/after toggle and real-time blur, underexposure, and glare diagnostics.
+        </div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-item accent-indigo">
+        <div class="feature-title">📝 6. Craft-Aware Missing Field Wizard</div>
+        <div class="feature-desc">
+          Contextual templates for Bagru Block Prints, Jaipur Blue Pottery, Bastar Dhokra, etc. Non-intrusive step-by-step wizard prompting for vital buyer specifications.
+        </div>
+      </div>
+
+      <!-- Feature 7 -->
+      <div class="feature-item accent-indigo">
+        <div class="feature-title">📶 7. Offline-First Drafts & Conflict Sync</div>
+        <div class="feature-desc">
+          IndexedDB v2 local storage with retry queue. Operates 100% offline in rural villages. Timestamp conflict management creates safe copies without silent overwrites.
+        </div>
+      </div>
+
+      <!-- Feature 8 -->
+      <div class="feature-item accent-gold">
+        <div class="feature-title">🏛️ 8. Facilitator & NGO Review Desk</div>
+        <div class="feature-desc">
+          5-metric audit dashboard for cluster coordinators and SHG leaders. Queue for inspecting pending claims, vetting fair prices, and submitting audit field notes.
+        </div>
+      </div>
+
+      <!-- Feature 9 -->
+      <div class="feature-item accent-rose">
+        <div class="feature-title">📍 9. Cluster Geo-Fencing Dispatch</div>
+        <div class="feature-desc">
+          Validates that product dispatch origin physically matches the recognized geographical heritage boundary (e.g. Bagru cluster polygon), proving authentic provenance.
+        </div>
+      </div>
+
+      <!-- Feature 10 -->
+      <div class="feature-item accent-emerald">
+        <div class="feature-title">🎥 10. Kala Reels ➔ Direct 1-Tap Buy</div>
+        <div class="feature-desc">
+          Short-form making videos showcasing raw artisanal process. Floating buy-now button allows consumers to discover, learn, and purchase directly inside the video flow.
+        </div>
+      </div>
+
+      <!-- Feature 11 -->
+      <div class="feature-item accent-gold">
+        <div class="feature-title">🖼️ 11. AI Room Décor Simulator</div>
+        <div class="feature-desc">
+          Space Stager: Buyers upload a photo of their living room, empty wall, or corner table. AI visualizes how authentic vases, tapestries, or brass lamps fit their home.
+        </div>
+      </div>
+
+      <!-- Feature 12 -->
+      <div class="feature-item accent-indigo">
+        <div class="feature-title">🔍 12. AI Multi-Object Visual Search</div>
+        <div class="feature-desc">
+          Uploads a lifestyle or Pinterest image and detects multiple objects simultaneously (e.g., [Terracotta Vase] + [Jute Dhurrie]), matching each to KalaSetu catalog items.
+        </div>
+      </div>
+
+      <!-- Feature 13 -->
+      <div class="feature-item accent-emerald">
+        <div class="feature-title">💰 13. Kala Funds (Financial Aid Hub)</div>
+        <div class="feature-desc">
+          Direct discovery of government schemes: PM Vishwakarma (toolkit grants & ₹3L collateral-free loans), AHVY, Mudra loans, and Pehchan artisan card benefits.
+        </div>
+      </div>
+
+      <!-- Feature 14 -->
+      <div class="feature-item accent-rose">
+        <div class="feature-title">📊 14. Artisan Productivity Score</div>
+        <div class="feature-desc">
+          Business health score (0–100) based on fulfilled orders, catalog updates, hisab ledger consistency, and buyer ratings. Enhances loan creditworthiness.
+        </div>
+      </div>
+
+      <!-- Feature 15 -->
+      <div class="feature-item accent-gold">
+        <div class="feature-title">🤖 15. KalaSetu Saathi (Voice AI Companion)</div>
+        <div class="feature-desc">
+          Conversational agent assisting buyers in finding heritage gifts and assisting artisans with profit calculations and daily stock status in regional languages.
+        </div>
+      </div>
+
+      <!-- Feature 16 -->
+      <div class="feature-item accent-indigo">
+        <div class="feature-title">🎁 16. Patron & Artisan Reward System</div>
+        <div class="feature-desc">
+          Artisan Karma points for verified sustainable dyes; Heritage Patron badges for repeat buyers supporting rural craft clusters.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3: SYSTEM ARCHITECTURE & HOST SPECS -->
+  <div class="doc-card">
+    <div class="card-header">
+      <h2 class="card-title"><span class="icon">💻</span> Section 3: Technical System Architecture & Hardware Footprint</h2>
+      <span class="badge badge-emerald">Zero Cloud Billing</span>
+    </div>
+
+    <p style="margin-top:0;">
+      KalaSetu AI is engineered for extreme resource efficiency. The architecture decouples the lightweight mobile presentation layer from the high-throughput local AI inference engine, enabling native mobile APK delivery while running cutting-edge models without cloud subscriptions.
+    </p>
+
+    <pre class="arch-flow">
+┌────────────────────────────────────────────────────────────────────────────────┐
+│                           END-TO-END DEPLOYMENT TOPOLOGY                       │
+│                                                                                │
+│  📱 MOBILE PHONE (Android APK via PWABuilder)                                  │
+│     ├── Client RAM: &lt; 150 MB total (Runs on ₹7,000 budget smartphones)         │
+│     ├── Speech: Native Android SpeechRecognition (0 MB extra)                  │
+│     ├── Document OCR: Tesseract.js WebAssembly (Offline client-side)           │
+│     └── Storage: IndexedDB v2 (Full offline cataloging &amp; draft retry queue)   │
+│                            │                                                   │
+│                 HTTPS / 5G │ REST Endpoints                                    │
+│                            ▼                                                   │
+│  🌐 VERCEL PRODUCTION HOST (https://kalasetu.vercel.app)                       │
+│     ├── Static PWA Assets, Clean Routing (vercel.json)                         │
+│     └── Dynamic AI Endpoint Tunnel Handshake Resolver                          │
+│                            │                                                   │
+│          Cloudflare Tunnel │ (cloudflared --url http://localhost:11434)        │
+│                            ▼                                                   │
+│  💻 HOST MACHINE (ASUS TUF Gaming A15 - Verified Hardware)                     │
+│     ├── Dedicated GPU: NVIDIA GeForce RTX 3050 (4 GB VRAM) ──► CUDA Accelerated │
+│     ├── Processor: AMD Ryzen 7 7445HS (3.20 GHz - 4.70 GHz Turbo)             │
+│     ├── System RAM: 16.0 GB DDR5 @ 5600 MT/s (High Bandwidth)                  │
+│     ├── Brain Model: Qwen2.5:3b-instruct (2.0 GB VRAM, ~55 tok/sec)            │
+│     └── Vision Model: Moondream2 (1.4 GB VRAM, 0.6s/image motif inspection)    │
+└────────────────────────────────────────────────────────────────────────────────┘
+    </pre>
+
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>System Layer</th>
+          <th>Technology</th>
+          <th>Hardware Role</th>
+          <th>Memory Footprint</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Mobile Client</strong></td>
+          <td>Android TWA / PWA (PWABuilder)</td>
+          <td>Artisan UI, Mic, Camera, Offline DB</td>
+          <td><span class="badge badge-emerald">&lt; 150 MB RAM</span></td>
+        </tr>
+        <tr>
+          <td><strong>Language Model</strong></td>
+          <td>Qwen2.5-3B-Instruct (Q4_K_M)</td>
+          <td>Catalog structuring & negotiation reasoning</td>
+          <td><span class="badge badge-indigo">2.0 GB VRAM (RTX 3050)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Vision Model</strong></td>
+          <td>Moondream2 (1.86B Q4)</td>
+          <td>Motif identification & craft photo inspection</td>
+          <td><span class="badge badge-indigo">1.4 GB VRAM (RTX 3050)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Document OCR</strong></td>
+          <td>Tesseract.js (v5) + Devanagari</td>
+          <td>Handwritten expense slips & Pehchan ID OCR</td>
+          <td><span class="badge badge-amber">80 MB Client WASM</span></td>
+        </tr>
+        <tr>
+          <td><strong>Cloud Bridge</strong></td>
+          <td>Cloudflare Tunnel (cloudflared)</td>
+          <td>Zero-config HTTPS tunnel to mobile APK</td>
+          <td><span class="badge badge-blue">15 MB System RAM</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: FINANCIAL AID & GOVERNMENT SCHEMES (KALA FUNDS) -->
+  <div class="doc-card">
+    <div class="card-header">
+      <h2 class="card-title"><span class="icon">🏛️</span> Section 4: Kala Funds — Government Schemes & Financial Aid Hub</h2>
+      <span class="badge badge-amber">Financial Inclusion</span>
+    </div>
+
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>Scheme / Program</th>
+          <th>Target Beneficiary</th>
+          <th>Key Financial / Material Benefit</th>
+          <th>KalaSetu Integration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>PM Vishwakarma Yojana</strong></td>
+          <td>18 traditional artisan trades (Potters, Weavers, Blacksmiths)</td>
+          <td>₹15,000 tool kit incentive + ₹1 Lakh (Tranche 1) & ₹2 Lakh (Tranche 2) @ 5% concessional interest.</td>
+          <td>1-Click eligibility check, craft certification pre-fill, and application tracking.</td>
+        </tr>
+        <tr>
+          <td><strong>Pehchan Artisan ID Card</strong></td>
+          <td>All verified handicraft & handloom artisans</td>
+          <td>Official national artisan identity, free accidental insurance coverage (₹2 Lakh), and direct haat stalls.</td>
+          <td>Integrated directly into the Product Passport QR code as proof of master craft lineage.</td>
+        </tr>
+        <tr>
+          <td><strong>Ambedkar Hastshilp Vikas (AHVY)</strong></td>
+          <td>Artisan Self-Help Groups (SHGs) and rural craft clusters</td>
+          <td>Common Facility Centers (CFC), raw material bank subsidies, and modern design workshops.</td>
+          <td>Facilitator/NGO desk clusters artisans into compliant SHGs to claim bulk infrastructure grants.</td>
+        </tr>
+        <tr>
+          <td><strong>Pradhan Mantri Mudra Yojana</strong></td>
+          <td>Micro-enterprises & individual artisans</td>
+          <td>Shishu (up to ₹50,000) & Kishore (up to ₹5 Lakh) collateral-free working capital loans.</td>
+          <td>Artisan Productivity Score serves as an alternative non-traditional creditworthiness benchmark.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: SOCIAL IMPACT & ROI -->
+  <div class="doc-card">
+    <div class="card-header">
+      <h2 class="card-title"><span class="icon">📈</span> Section 5: Measurable Social Impact & Market Viability</h2>
+    </div>
+
+    <div class="grid-2col">
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 14px;">
+        <h4 style="margin:0 0 6px 0; color:#0f172a; font-size:12px;">Artisan Income Multiplier (+140% Real Take-Home)</h4>
+        By eliminating the 4-layer middleman chain (Village broker ➔ City wholesaler ➔ Metro retailer ➔ Export agent), direct-to-consumer provenance sales boost the artisan's take-home earnings from ₹350 to ₹850 on an authentic Bagru dupatta.
+      </div>
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px 14px;">
+        <h4 style="margin:0 0 6px 0; color:#0f172a; font-size:12px;">Zero Recurring Cloud Costs for NGOs & Self-Help Groups</h4>
+        Because the entire AI pipeline executes locally on consumer-grade gaming hardware (RTX 3050 CUDA) or in-browser WASM, rural cooperatives can operate the platform indefinitely with ₹0 monthly API subscriptions.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <strong>KalaSetu AI (SIH26090)</strong> • Ministry of Textiles & Rural Development Solution • Open-Source & Proprietary Blend • September 2026
+  </div>
+
+</body>
+</html>
