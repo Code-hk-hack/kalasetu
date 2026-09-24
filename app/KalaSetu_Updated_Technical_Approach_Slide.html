@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIH 2026 — KalaSetu AI Technical Approach & Tech Stack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+  @page {
+    size: 297mm 210mm; /* A4 Landscape 16:9 Presentation Format */
+    margin: 10mm 12mm 10mm 12mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    color: #0f172a;
+    background: #ffffff;
+    margin: 0;
+    padding: 10px 14px;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+
+  /* Slide Wrapper */
+  .slide-container {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Header */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+
+  .header-left h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+  }
+
+  .header-left .sub {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  .sih-badge-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 5px 12px;
+    border-radius: 8px;
+  }
+
+  .sih-badge-box .logo-text {
+    font-size: 11px;
+    font-weight: 800;
+    color: #d97706;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-align: right;
+  }
+
+  .sih-badge-box .year {
+    font-size: 13px;
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  /* Main Layout: 2 Columns */
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 18px;
+  }
+
+  /* LEFT COLUMN */
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .section-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  /* Process Flow Steps */
+  .flow-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    position: relative;
+  }
+
+  .flow-step {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flow-step .step-tag {
+    font-size: 8.5px;
+    font-weight: 800;
+    color: #2563eb;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .flow-step .step-icon {
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  .flow-step .step-title {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+  }
+
+  .flow-step .step-sub {
+    font-size: 8px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  /* Prototype Cards Mockup */
+  .prototypes-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .mock-card {
+    background: #ffffff;
+    border: 1.5px solid #0f172a;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .mock-card-header {
+    background: #064e3b;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .pricing-split {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 6px;
+  }
+
+  .cost-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 8.5px;
+  }
+
+  .cost-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+  }
+
+  .suggested-box {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 4px;
+    padding: 6px;
+    text-align: center;
+  }
+
+  .suggested-box .val {
+    font-size: 16px;
+    font-weight: 900;
+    color: #065f46;
+  }
+
+  .suggested-box .vs-legacy {
+    font-size: 7.5px;
+    color: #991b1b;
+    font-weight: 700;
+    background: #fee2e2;
+    padding: 2px 4px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 2px;
+  }
+
+  .voice-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .voice-wave {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #047857;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .voice-transcript {
+    font-size: 8px;
+    font-style: italic;
+    color: #475569;
+    background: #ffffff;
+    border: 1px dashed #cbd5e1;
+    padding: 3px 6px;
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  /* VLM Benchmark Callout */
+  .vlm-benchmark-box {
+    background: #0f172a;
+    color: #ffffff;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 9px;
+  }
+
+  .vlm-benchmark-box .vlm-title {
+    color: #f59e0b;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 8.5px;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .vlm-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .vlm-table th, .vlm-table td {
+    padding: 2px 4px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+    font-size: 8.5px;
+  }
+
+  .vlm-table th { color: #94a3b8; font-weight: 700; }
+  .vlm-table td.highlight { color: #10b981; font-weight: 800; }
+
+  /* RIGHT COLUMN: TECH STACK */
+  .right-col {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .tech-header {
+    font-size: 14px;
+    font-weight: 900;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+
+  .tech-item {
+    margin-bottom: 6px;
+    font-size: 10.5px;
+    line-height: 1.35;
+  }
+
+  .tech-item strong {
+    color: #0f172a;
+    font-weight: 800;
+  }
+
+  .tech-tag {
+    background: #e2e8f0;
+    color: #1e293b;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9.5px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag.blue { background: #dbeafe; color: #1e40af; }
+  .tech-tag.green { background: #dcfce7; color: #166534; }
+  .tech-tag.amber { background: #fef3c7; color: #92400e; }
+  .tech-tag.purple { background: #f3e8ff; color: #6b21a8; }
+
+  .dataset-section {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #cbd5e1;
+  }
+
+  .dataset-section h4 {
+    margin: 0 0 4px 0;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #0f172a;
+  }
+
+  .dataset-list {
+    font-size: 9.5px;
+    color: #334155;
+    line-height: 1.35;
+  }
+</style>
+</head>
+<body>
+
+<div class="slide-container">
+  <!-- Slide Header -->
+  <div class="slide-header">
+    <div class="header-left">
+      <h1>Technical Approach & Architecture</h1>
+      <div class="sub">SIH 2026 • Ministry of Textiles • KalaSetu AI Platform Blueprint</div>
+    </div>
+    <div class="sih-badge-box">
+      <div>
+        <div class="logo-text">Smart India Hackathon</div>
+        <div class="year">2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layout: 2 Columns -->
+  <div class="layout-grid">
+    
+    <!-- LEFT: Process Flow & Prototypes & VLM Matrix -->
+    <div class="left-col">
+      <div class="section-label">⚙️ Process Flow Diagram</div>
+      
+      <!-- 4 Step Pipeline -->
+      <div class="flow-row">
+        <div class="flow-step">
+          <div class="step-tag">Step 1</div>
+          <div class="step-icon">📸🎙️</div>
+          <div class="step-title">Acquisition</div>
+          <div class="step-sub">Phone Camera + Browser Native STT</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-tag">Step 2</div>
+          <div class="step-icon">⚡📱</div>
+          <div class="step-title">Edge AI (Phone)</div>
+          <div class="step-sub">Needle 3 (8MB) + Tesseract WASM</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-tag">Step 3</div>
+          <div class="step-icon">💻☁️</div>
+          <div class="step-title">Host GPU Brain</div>
+          <div class="step-sub">Qwen2-VL-2B + Gemma 2 (RTX 3050)</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-tag">Step 4</div>
+          <div class="step-icon">🛍️🤝</div>
+          <div class="step-title">Market Output</div>
+          <div class="step-sub">ONDC Beckn + Verifiable Passport</div>
+        </div>
+      </div>
+
+      <!-- Live Prototype Showcase -->
+      <div class="section-label" style="margin-top: 4px;">📱 Working Prototypes</div>
+      <div class="prototypes-row">
+        <!-- Prototype 1: Smart Pricing -->
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span>KalaSetu Smart Pricing</span>
+            <span>ML</span>
+          </div>
+          <div class="pricing-split">
+            <div class="cost-box">
+              <div style="font-weight: 700; margin-bottom: 3px;">Cost Breakdown</div>
+              <div class="cost-row"><span>Material:</span> <strong>₹320</strong></div>
+              <div class="cost-row"><span>Labor (8h):</span> <strong>₹480</strong></div>
+              <div class="cost-row"><span>Overhead:</span> <strong>₹40</strong></div>
+            </div>
+            <div class="suggested-box">
+              <div style="font-size: 8px; font-weight: 700; color: #065f46;">SUGGESTED PRICE</div>
+              <div class="val">₹840</div>
+              <div class="vs-legacy">Vs. middleman: ₹350 (-58%)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prototype 2: Voice Catalog -->
+        <div class="mock-card">
+          <div class="mock-card-header">
+            <span>KalaSetu Voice Catalog</span>
+            <span>LIVE</span>
+          </div>
+          <div class="voice-box">
+            <div class="voice-wave">🎙️</div>
+            <div style="font-size: 9px; font-weight: 800; color: #064e3b;">Blue Pottery Kalash</div>
+            <div class="voice-transcript">"Yeh neeli mitti ka kalash hai..."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small Vision-Language Model Benchmark -->
+      <div class="vlm-benchmark-box">
+        <div class="vlm-title">
+          <span>Micro-Texture VLM Optimization (RTX 3050 4GB VRAM)</span>
+          <span>GPU Allocation: ~1.4 - 2.2 GB</span>
+        </div>
+        <table class="vlm-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Scale</th>
+              <th>Resolution Strategy</th>
+              <th>DocVQA / TextVQA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Qwen2-VL-2B-Instruct</strong></td>
+              <td>2.21B</td>
+              <td>Dynamic Native Resolution</td>
+              <td class="highlight">90.1% / 79.7% 🏆</td>
+            </tr>
+            <tr>
+              <td>PaliGemma-2-3B</td>
+              <td>2.92B</td>
+              <td>Fixed (448 × 448)</td>
+              <td>84.5% / 74.1%</td>
+            </tr>
+            <tr>
+              <td>SmolVLM-Instruct</td>
+              <td>2.20B</td>
+              <td>Dynamic Patch Tiling</td>
+              <td>81.6% / 72.7%</td>
+            </tr>
+            <tr>
+              <td>Moondream2</td>
+              <td>1.86B</td>
+              <td>Fixed (378 × 378)</td>
+              <td>70.5% / 65.2%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RIGHT: Detailed Tech Stack & Datasets -->
+    <div class="right-col">
+      <div class="tech-header">Updated 2026 Tech Stack</div>
+
+      <div class="tech-item">
+        <strong>Frontend:</strong> <span class="tech-tag blue">React.js + Tailwind CSS</span> / Lightweight PWA (< 150 MB RAM on budget phones) packaged into Android APK via PWABuilder (TWA).
+      </div>
+
+      <div class="tech-item">
+        <strong>Backend & Cloud BaaS:</strong> <span class="tech-tag green">Supabase (Free Tier)</span> — Auth, Postgres DB, Media Storage, and <span class="tech-tag green">pgvector</span> for vector visual search.
+      </div>
+
+      <div class="tech-item">
+        <strong>Edge AI & On-Device Automation:</strong> <span class="tech-tag purple">Needle 3 (8–29 MB)</span> (Cactus Compute) for local tool calling & field extraction + <span class="tech-tag purple">Jev</span> (TypeSafe AI) sub-100ms claim risk validation + TFLite (U2Net) + Tesseract.js WASM for offline slip OCR.
+      </div>
+
+      <div class="tech-item">
+        <strong>Micro-Texture Vision (VLM):</strong> <span class="tech-tag blue">Qwen2-VL-2B-Instruct</span> (90.1% DocVQA SOTA) + <span class="tech-tag blue">PaliGemma-2-3B</span> on NVIDIA RTX 3050 CUDA (4GB VRAM). Identifies weave defects, motifs, and Pehchan IDs.
+      </div>
+
+      <div class="tech-item">
+        <strong>Reasoning & Story Brain:</strong> <span class="tech-tag amber">Google Gemma 2 (2B / 9B)</span> / <span class="tech-tag amber">Qwen2.5-3B</span> for structured catalog generation, emotional backstories, and anti-exploitation bargaining logic.
+      </div>
+
+      <div class="tech-item">
+        <strong>Voice AI & Multilingual STT:</strong> <span class="tech-tag blue">Browser Native STT</span> (Web Speech API, 0 MB overhead) + <span class="tech-tag green">Bhashini API</span> (Govt of India, 22 languages) + <span class="tech-tag purple">Sarvam AI / ElevenLabs</span> Indic voice.
+      </div>
+
+      <div class="tech-item">
+        <strong>Pricing Engine:</strong> <span class="tech-tag amber">Scikit-learn ML Regression</span> + FairPrice Guard cost-plus wage defense.
+      </div>
+
+      <div class="tech-item">
+        <strong>Logistics & Provenance Maps:</strong> <span class="tech-tag blue">Leaflet.js + OpenStreetMap</span> with 378 SFURTI cluster geo-fence polygons.
+      </div>
+
+      <div class="tech-item">
+        <strong>Marketplace Integration:</strong> <span class="tech-tag green">ONDC Beckn Protocol</span> + DLT SMS Gateway (Fast2SMS / MSG91).
+      </div>
+
+      <!-- Datasets Section -->
+      <div class="dataset-section">
+        <h4>Datasets Grounding the Model:</h4>
+        <div class="dataset-list">
+          • <strong>4th All India Handloom Census:</strong> 35.22 Lakh workers wage & cluster data.<br>
+          • <strong>EPCH Annual Report 2024-25:</strong> ₹33,424 Cr handicraft export valuation.<br>
+          • <strong>SFURTI Cluster Directory (MSME):</strong> 378 recognized rural artisan clusters.<br>
+          • <strong>Kaggle Handmade Products & Indo Fashion:</strong> Pricing model training set.<br>
+          • <strong>Bhashini AI Mission:</strong> 22 Indian regional languages speech corpus.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

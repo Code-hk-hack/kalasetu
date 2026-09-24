@@ -195,12 +195,12 @@
         
         <h2>End-to-End Technical Workflow (6-Step Pipeline)</h2>
         <ul>
-            <li><strong>1. Raw Capture:</strong> Artisan snaps raw product photo, speaks voice note, or shoots 10s making video on basic Android phone.</li>
-            <li><strong>2. Edge Vision (₹0 Cloud Cost):</strong> On-device <strong>TFLite (U2Net)</strong> isolates product and wipes background locally without cloud server bills.</li>
-            <li><strong>3. Voice-to-Listing:</strong> <strong>Voice Credits (Sarvam/ElevenLabs) + Bhashini API</strong> transcribes regional audio &#8594; generates bilingual e-commerce listings.</li>
-            <li><strong>4. Dynamic Pricing Engine:</strong> Scikit-learn Cost-Plus ML Regression suggests fair retail and wholesale pricing.</li>
-            <li><strong>5. Supabase All-in-One Cloud Engine:</strong> <strong>Supabase (Free Tier)</strong> manages user authentication, relational order tables, product catalogs, photo/video bucket storage, and vector similarity search (`pgvector`).</li>
-            <li><strong>6. Logistics, Tracking & SMS:</strong> Instant order SMS via <strong>DLT Gateway (Fast2SMS/MSG91)</strong>; live order tracking with <strong>Leaflet OSM Geo-Fencing</strong> around registered SFURTI clusters + ONDC Beckn Protocol.</li>
+            <li><strong>1. Raw Capture:</strong> Artisan snaps raw product photo, speaks voice note, or shoots 10s making video on basic Android phone (< 150 MB RAM).</li>
+            <li><strong>2. Edge AI & Tool Calling:</strong> On-device <strong>Needle 3 (8–29 MB)</strong> & <strong>Jev</strong> perform instant local field extraction and claim risk validation + TFLite/Tesseract WASM for offline slip OCR.</li>
+            <li><strong>3. Voice-to-Listing:</strong> <strong>Browser Native STT (Web Speech API) + Bhashini AI (22 languages) + Sarvam AI</strong> transcribes regional audio &#8594; generates bilingual e-commerce listings.</li>
+            <li><strong>4. Micro-Texture Vision (VLM):</strong> <strong>Qwen2-VL-2B-Instruct (90.1% DocVQA) + PaliGemma-2-3B</strong> on NVIDIA RTX 3050 CUDA (4GB VRAM) inspects micro-texture weave patterns, authentic motifs, and Pehchan artisan ID cards.</li>
+            <li><strong>5. Reasoning & Pricing Brain:</strong> <strong>Google Gemma 2 (2B/9B) / Qwen2.5-3B</strong> + Scikit-learn Cost-Plus ML Regression suggests fair retail and wholesale pricing.</li>
+            <li><strong>6. Supabase Cloud BaaS & ONDC Beckn:</strong> <strong>Supabase (Free Tier)</strong> manages auth, Postgres DB, storage buckets & `pgvector` for visual search + <strong>ONDC Beckn Protocol</strong> & <strong>Leaflet OSM Geo-Fencing</strong> around registered SFURTI clusters.</li>
         </ul>
 
         <h2>100% Zero-Cost Tech Stack Table</h2>
@@ -212,34 +212,40 @@
                 <th>Core Functionality</th>
             </tr>
             <tr>
-                <td><strong>Smart Cataloging & Edge Vision</strong></td>
-                <td>TFLite (U2Net) + MobileCLIP</td>
+                <td><strong>Edge AI & On-Device Tool Calling</strong></td>
+                <td>Needle 3 (8–29 MB) + Jev + TFLite</td>
                 <td>₹0 (On-Device Edge)</td>
-                <td>Background removal + visual embedding extraction</td>
+                <td>Sub-50ms local tool calling, field extraction & claim validation</td>
             </tr>
             <tr>
                 <td><strong>Speech & Voice AI</strong></td>
-                <td>Voice Credits + Bhashini API</td>
-                <td>Credits / Free Govt AI</td>
-                <td>Bilingual STT/TTS across 22 Indian regional languages</td>
+                <td>Browser Native STT + Bhashini AI + Sarvam</td>
+                <td>100% Free Govt AI / Native</td>
+                <td>Zero-latency streaming STT/TTS across 22 Indian regional languages</td>
+            </tr>
+            <tr>
+                <td><strong>Micro-Texture Vision (VLM)</strong></td>
+                <td>Qwen2-VL-2B-Instruct + PaliGemma-2-3B</td>
+                <td>₹0 Local RTX 3050 CUDA</td>
+                <td>90.1% DocVQA SOTA craft motif recognition, weave audit & receipt OCR</td>
+            </tr>
+            <tr>
+                <td><strong>Reasoning Brain & Pricing</strong></td>
+                <td>Gemma 2 (2B/9B) + Scikit-learn ML</td>
+                <td>₹0 Local Host Engine</td>
+                <td>Cost-plus pricing regression + luxury catalog storytelling</td>
             </tr>
             <tr>
                 <td><strong>Database, Auth & Storage</strong></td>
                 <td>Supabase (Free Tier BaaS)</td>
                 <td>₹0 Free Tier</td>
-                <td>User auth, relational DB, media storage & pgvector</td>
+                <td>User auth, relational DB, media storage & pgvector visual search</td>
             </tr>
             <tr>
-                <td><strong>Pricing & Backend</strong></td>
-                <td>FastAPI + Scikit-learn ML</td>
-                <td>₹0 on Vercel/Render</td>
-                <td>Cost-plus pricing regression + catalog microservices</td>
-            </tr>
-            <tr>
-                <td><strong>Mapping & Logistics</strong></td>
-                <td>Leaflet.js + OpenStreetMap</td>
+                <td><strong>Mapping & Marketplace</strong></td>
+                <td>Leaflet.js OSM + ONDC Beckn Protocol</td>
                 <td>100% Free Open-Source</td>
-                <td>SFURTI cluster geo-fencing & ONDC Beckn sync</td>
+                <td>SFURTI cluster geo-fencing (378 clusters) & ONDC network sync</td>
             </tr>
         </table>
     </div>
