@@ -6,7 +6,7 @@
 class AppState {
   constructor() {
     this.state = {
-      language: (typeof localStorage !== 'undefined' ? localStorage.getItem('kalasetu_lang') : null) || 'bn', // Default or persisted
+      language: (typeof localStorage !== 'undefined' ? localStorage.getItem('kalasetu_lang') : null) || 'en', // Default English
       online: typeof navigator !== 'undefined' ? navigator.onLine : true,
       artisan: (typeof localStorage !== 'undefined' && JSON.parse(localStorage.getItem('kalasetu_artisan') || 'null')) || {
         name: 'Ramji Lal Meena',
@@ -1288,14 +1288,17 @@ class AppState {
   }
 
   t(key, fallback = null) {
-    const lang = this.state.language;
+    const lang = this.state.language || 'en';
     if (this.translations[lang] && this.translations[lang][key]) {
       return this.translations[lang][key];
+    }
+    if (this.translations.en && this.translations.en[key]) {
+      return this.translations.en[key];
     }
     if (this.translations.hi && this.translations.hi[key]) {
       return this.translations.hi[key];
     }
-    return this.translations.en[key] || fallback || key;
+    return fallback || key;
   }
 
   on(event, callback) {

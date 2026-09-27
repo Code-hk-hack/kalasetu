@@ -35,8 +35,8 @@
       <div class="nav-actions">
         <!-- Language Switcher Selector -->
         <select id="landing-lang-select" class="btn-lang-dropdown" aria-label="Select Language">
-          <option value="en">English (India)</option>
-          <option value="hi" selected>हिन्दी (Hindi)</option>
+          <option value="en" selected>English (India)</option>
+          <option value="hi">हिन्दी (Hindi)</option>
           <option value="bn">বাংলা (Bengali)</option>
           <option value="mr">मराठी (Marathi)</option>
           <option value="ta">தமிழ் (Tamil)</option>
@@ -633,13 +633,16 @@
       localStorage.setItem('kalasetu_lang', code);
     }
 
-    // Initialize from localStorage or Bengali/Hindi
-    const savedLang = localStorage.getItem('kalasetu_lang') || 'bn';
+    // Initialize from localStorage or English default
+    const savedLang = localStorage.getItem('kalasetu_lang') || 'en';
     langSelect.value = savedLang;
     applyLandingLanguage(savedLang);
 
     langSelect.addEventListener('change', (e) => {
-      applyLandingLanguage(e.target.value);
+      const newLang = e.target.value;
+      localStorage.setItem('kalasetu_lang', newLang);
+      applyLandingLanguage(newLang);
+      window.location.reload();
     });
 
     // 3. Audio Speech Synthesis for Vision in Mother Tongue (Powered by Google Indic TTS)

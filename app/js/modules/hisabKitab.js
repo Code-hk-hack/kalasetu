@@ -96,11 +96,16 @@ export const HisabKitabModule = {
           <!-- Document / Handwritten Bill Reader (Gemini Multimodal OCR) -->
           <div class="ocr-bill-box p-3 my-3 text-center" style="background: rgba(234, 88, 12, 0.05); border: 1px dashed var(--primary); border-radius: var(--radius-md);">
             <p class="text-sm font-semibold mb-2">📄 ${t('scanBillTitle', 'Scan Handwritten Bill / Khata Slip')}</p>
-            <input type="file" id="hisab-doc-input" accept="image/*" capture="environment" style="display:none;" />
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-scan-bill-trigger">
-              📸 ${t('uploadSlipBtn', 'Upload or Snap Bill Photo')}
-              <span class="badge badge-accent ml-1">✨ Gemini Vision</span>
-            </button>
+            <input type="file" id="hisab-camera-input" accept="image/*" capture="environment" style="display:none;" />
+            <input type="file" id="hisab-doc-input" accept="image/*" style="display:none;" />
+            <div style="display: flex; gap: 8px; justify-content: center; max-width: 320px; margin: 0 auto;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-scan-bill-camera" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-weight: 700;">
+                📷 <span>Snap Bill</span>
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" id="btn-scan-bill-upload" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 4px; font-weight: 700;">
+                📁 <span>Upload Slip</span>
+              </button>
+            </div>
             <div id="ocr-bill-status" class="text-xs text-muted mt-2 hidden">
               ⏳ ${t('readingBillOcr', 'Gemini Vision reading handwritten slip...')}
             </div>
@@ -216,16 +221,21 @@ export const HisabKitabModule = {
     });
 
     // 4. Handwritten Bill & Slip OCR Scanner (Gemini Vision)
-    const btnScanTrigger = document.getElementById('btn-scan-bill-trigger');
+    const btnScanCamera = document.getElementById('btn-scan-bill-camera');
+    const btnScanUpload = document.getElementById('btn-scan-bill-upload');
+    const cameraInput = document.getElementById('hisab-camera-input');
     const docInput = document.getElementById('hisab-doc-input');
     const ocrStatus = document.getElementById('ocr-bill-status');
 
-    btnScanTrigger?.addEventListener('click', () => {
+    btnScanCamera?.addEventListener('click', () => {
+      cameraInput?.click();
+    });
+
+    btnScanUpload?.addEventListener('click', () => {
       docInput?.click();
     });
 
-    docInput?.addEventListener('change', (e) => {
-      const file = e.target.files[0];
+    const handleBillFile = (file) => {
       if (!file) return;
 
       ocrStatus?.classList.remove('hidden');
@@ -258,7 +268,10 @@ export const HisabKitabModule = {
         }
       };
       reader.readAsDataURL(file);
-    });
+    };
+
+    cameraInput?.addEventListener('change', (e) => handleBillFile(e.target.files[0]));
+    docInput?.addEventListener('change', (e) => handleBillFile(e.target.files[0]));
   },
 
   parseHisabVoice(text) {

@@ -95,14 +95,26 @@ export const VoiceCatalogerModule = {
                   <span class="camera-icon">📸</span>
                 </div>
               </div>
-              <h3 class="camera-prompt-title">${t('tapToCapture', 'Tap to Take Photo or Upload')}</h3>
+              <h3 class="camera-prompt-title">${t('tapToCapture', 'Take Live Photo or Upload')}</h3>
               <p class="camera-prompt-subtitle">Auto-removes clutter & preserves authentic handmade motifs</p>
               <div class="camera-perks-row">
                 <span class="perk-chip">🌿 Natural Dye Safe</span>
                 <span class="perk-chip">🔍 Auto Quality Check</span>
               </div>
             </div>
+            <!-- Dual Inputs: Native Camera Capture for mobile + Gallery / File Picker -->
+            <input type="file" id="camera-input" accept="image/*" capture="environment" class="file-input-hidden" />
             <input type="file" id="file-input" accept="image/*" class="file-input-hidden" />
+          </div>
+
+          <!-- Dual Action Buttons: Open Camera vs Upload from Device -->
+          <div class="camera-choice-actions mt-2" style="display: flex; gap: 8px; justify-content: center; width: 100%;">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-open-camera" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700;">
+              📷 <span>${isHindi ? 'कैमरा खोलें (Live Photo)' : 'Open Camera (Live Photo)'}</span>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-upload-file" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700;">
+              🖼️ <span>${isHindi ? 'गैलरी से अपलोड करें' : 'Upload from Gallery'}</span>
+            </button>
           </div>
 
           <!-- Photo Quality Warning Guidance Card (If quality is suboptimal) -->
@@ -112,7 +124,7 @@ export const VoiceCatalogerModule = {
               <strong id="guidance-title">Photo Quality Guidance</strong>
             </div>
             <p class="guidance-msg" id="guidance-msg"></p>
-            <span class="guidance-subtip">Aap bina roke aage badh sakte hain, ya behtar bikri ke liye dubara photo le sakte hain.</span>
+            <span class="guidance-subtip">${isHindi ? 'आप आगे बढ़ सकते हैं या बेहतर फोटो ले सकते हैं।' : 'You can proceed or retake the photo for better results.'}</span>
           </div>
 
           <!-- Studio Enhancement Toolbar with Before/After Toggle -->
@@ -134,7 +146,7 @@ export const VoiceCatalogerModule = {
               <span class="step-num">2</span>
               <span>${t('step2Title', 'Speak About Your Craft')}</span>
             </h2>
-            <span class="badge badge-groq-lpu">⚡ Groq LPU Brain</span>
+            <span class="badge badge-groq-lpu">⚡ AI Voice Engine</span>
           </div>
 
           <p class="helper-text">
@@ -159,7 +171,7 @@ export const VoiceCatalogerModule = {
             </div>
 
             <span class="mic-status-label" id="mic-status-label">
-              ${t('holdToSpeak', 'Hold Mic & Speak (बोलने के लिए दबाएं)')}
+              ${isHindi ? 'माइक दबाकर बोलें' : 'Hold Mic & Speak'}
             </span>
           </div>
 
@@ -175,7 +187,7 @@ export const VoiceCatalogerModule = {
 
           <button class="btn btn-sample-deluxe btn-block mt-3" id="btn-sample-voice">
             <span class="sparkle-glyph">⚡</span>
-            <span>${t('sampleVoiceDemo', '1-Tap Sample Voice Demo (बगरू दुपट्टा - Live SIH Demo)')}</span>
+            <span>${isHindi ? 'नमूना आवाज़ से विवरण तैयार करें' : 'Try Sample Voice Demo'}</span>
           </button>
         </div>
 
@@ -190,9 +202,9 @@ export const VoiceCatalogerModule = {
           </div>
 
           <div class="wizard-body mt-2">
-            <p class="wizard-question" id="wizard-question-text">Yeh kis material ka hai—cotton, silk ya kuch aur?</p>
+            <p class="wizard-question" id="wizard-question-text">${isHindi ? 'यह किस सामग्री से बना है—कॉटन, रेशम या अन्य?' : 'What material is this made of—cotton, silk, or other?'}</p>
             <div class="wizard-input-row mt-2">
-              <input type="text" id="wizard-answer-input" class="form-control" placeholder="Type answer or tap mic..." />
+              <input type="text" id="wizard-answer-input" class="form-control" placeholder="${isHindi ? 'उत्तर लिखें या बोलें...' : 'Type answer or tap mic...'}" />
               <button class="btn btn-icon btn-secondary" id="btn-wizard-mic" title="Speak Answer">🎙️</button>
               <button class="btn btn-primary" id="btn-wizard-save-field">Save ✓</button>
             </div>
@@ -217,14 +229,14 @@ export const VoiceCatalogerModule = {
             <div class="trust-header">
               <div class="trust-title-row">
                 <span class="trust-shield">🛡️</span>
-                <strong>ClaimSafe AI — Trust & Verification (प्रमाणिकता दावे)</strong>
+                <strong>${isHindi ? 'ClaimSafe AI — प्रमाणिकता सत्यापन' : 'ClaimSafe AI — Trust & Verification'}</strong>
               </div>
               <span class="badge-claim-guide">Zero False Advertising</span>
             </div>
 
             <div class="trust-prompt-box">
               <p class="trust-prompt-text">
-                ⚠️ <em>Is claim ko publish karne se pehle artisan se confirm karein.</em>
+                ⚠️ <em>${isHindi ? 'प्रकाशन से पहले कारीगर से पुष्टि करें।' : 'Verify claims before publishing.'}</em>
               </p>
             </div>
 
@@ -288,7 +300,7 @@ export const VoiceCatalogerModule = {
 
             <div class="form-group">
               <label class="form-label">
-                ${t('englishDesc', 'English Description (For Buyers)')}
+                ${t('englishDesc', 'English Description')}
                 <button type="button" class="btn-tts-mini" id="btn-read-en">🔊</button>
               </label>
               <textarea id="draft-desc-en" class="form-control" rows="2"></textarea>
@@ -297,26 +309,26 @@ export const VoiceCatalogerModule = {
             <!-- Feature 5: Artisan Story / About the Maker -->
             <div class="artisan-story-card">
               <div class="story-header-row">
-                <label class="form-label font-bold">📖 About the Maker / Artisan Story (वैकल्पिक)</label>
+                <label class="form-label font-bold">${isHindi ? '📖 कारीगर की कहानी (वैकल्पिक)' : '📖 About the Maker / Artisan Story'}</label>
                 <button type="button" class="btn-tts-mini" id="btn-mic-story" title="Speak Artisan Story">🎙️</button>
               </div>
               <textarea id="draft-artisan-story" class="form-control" rows="2" 
-                placeholder="Share your heritage journey, family craft lineage, or cluster history..."></textarea>
+                placeholder="${isHindi ? 'अपनी विरासत और शिल्प कला के बारे में बताएं...' : 'Share your heritage journey, family craft lineage, or cluster history...'}"></textarea>
               
               <!-- Privacy Consent Toggles (Default OFF) -->
               <div class="privacy-consent-box mt-2">
-                <span class="privacy-heading">🔒 Privacy Consent (गोपनीयता अनुमति)</span>
+                <span class="privacy-heading">${isHindi ? '🔒 गोपनीयता अनुमति' : '🔒 Privacy Consent'}</span>
                 <label class="consent-row">
                   <input type="checkbox" id="consent-artisan-name" />
-                  <span>Show artisan name publicly on marketplace (सार्वजनिक नाम दिखाएं)</span>
+                  <span>${isHindi ? 'मार्केटप्लेस पर कारीगर का नाम दिखाएं' : 'Show artisan name publicly on marketplace'}</span>
                 </label>
                 <label class="consent-row">
                   <input type="checkbox" id="consent-artisan-location" />
-                  <span>Show workshop / village location publicly (गांव व क्लस्टर पता दिखाएं)</span>
+                  <span>${isHindi ? 'कार्यशाला या गांव का पता दिखाएं' : 'Show workshop / village location publicly'}</span>
                 </label>
                 <label class="consent-row">
                   <input type="checkbox" id="consent-artisan-story" />
-                  <span>Show artisan heritage story publicly on Product Passport (कहानी प्रकाशित करें)</span>
+                  <span>${isHindi ? 'प्रोडक्ट पासपोर्ट पर कारीगर की कहानी दिखाएं' : 'Show artisan heritage story publicly on Product Passport'}</span>
                 </label>
               </div>
             </div>
@@ -352,15 +364,15 @@ export const VoiceCatalogerModule = {
     // 2. Camera Upload & Photo Quality Analysis (Feature 2)
     const cameraBox = document.getElementById('camera-box');
     const fileInput = document.getElementById('file-input');
+    const cameraInput = document.getElementById('camera-input');
+    const btnOpenCamera = document.getElementById('btn-open-camera');
+    const btnUploadFile = document.getElementById('btn-upload-file');
     const previewImg = document.getElementById('preview-img');
     const placeholder = document.getElementById('camera-placeholder');
     const studioControls = document.getElementById('studio-controls');
     const guidanceCard = document.getElementById('quality-guidance-card');
 
-    cameraBox.addEventListener('click', () => fileInput.click());
-
-    fileInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
+    const handleImageFile = (file) => {
       if (!file) return;
 
       const reader = new FileReader();
@@ -395,6 +407,28 @@ export const VoiceCatalogerModule = {
         appState.showToast(isHindi ? 'फोटो लोड हो गई!' : 'Craft photo loaded!', 'success');
       };
       reader.readAsDataURL(file);
+    };
+
+    fileInput?.addEventListener('change', (e) => handleImageFile(e.target.files[0]));
+    cameraInput?.addEventListener('change', (e) => handleImageFile(e.target.files[0]));
+
+    btnOpenCamera?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      cameraInput?.click();
+    });
+
+    btnUploadFile?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fileInput?.click();
+    });
+
+    cameraBox?.addEventListener('click', () => {
+      // On mobile devices open camera directly, on desktop open file picker
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        cameraInput?.click();
+      } else {
+        fileInput?.click();
+      }
     });
 
     // Before/After comparison toggle
@@ -439,7 +473,8 @@ export const VoiceCatalogerModule = {
     // Retake
     document.getElementById('btn-retake')?.addEventListener('click', (e) => {
       e.stopPropagation();
-      fileInput.value = '';
+      if (fileInput) fileInput.value = '';
+      if (cameraInput) cameraInput.value = '';
       this.originalImageUrl = null;
       this.enhancedImageUrl = null;
       previewImg.src = '';

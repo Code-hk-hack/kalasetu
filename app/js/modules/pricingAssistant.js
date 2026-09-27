@@ -26,6 +26,7 @@ export const PricingAssistantModule = {
 
   render() {
     const t = (k, fb) => appState.t(k, fb);
+    const isHindi = appState.get('language') === 'hi';
     const calc = FairPriceGuard.calculate(this.priceState);
 
     this.container.innerHTML = `
@@ -72,7 +73,7 @@ export const PricingAssistantModule = {
           <!-- 1. Material -->
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">🧵 Raw Material Cost (सामग्री खर्च)</label>
+              <label class="slider-label">${isHindi ? '🧵 कच्ची सामग्री खर्च' : '🧵 Raw Material Cost'}</label>
               <span class="slider-value" id="val-material">₹${this.priceState.materialCost}</span>
             </div>
             <input type="range" id="slider-material" min="0" max="3000" step="50" value="${this.priceState.materialCost}" class="custom-range" />
@@ -81,7 +82,7 @@ export const PricingAssistantModule = {
           <!-- 2. Labor -->
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">⏱️ Artisan Labor Value (कारीगर मजदूरी)</label>
+              <label class="slider-label">${isHindi ? '⏱️ कारीगर श्रम मूल्य' : '⏱️ Artisan Labor Value'}</label>
               <span class="slider-value" id="val-labor">₹${this.priceState.labourCost}</span>
             </div>
             <input type="range" id="slider-labor" min="0" max="5000" step="50" value="${this.priceState.labourCost}" class="custom-range" />
@@ -90,7 +91,7 @@ export const PricingAssistantModule = {
           <!-- 3. Packaging -->
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">📦 Eco Packaging (पैकिंग सामग्री)</label>
+              <label class="slider-label">${isHindi ? '📦 इको पैकेजिंग' : '📦 Eco Packaging'}</label>
               <span class="slider-value" id="val-packaging">₹${this.priceState.packagingCost}</span>
             </div>
             <input type="range" id="slider-packaging" min="0" max="300" step="10" value="${this.priceState.packagingCost}" class="custom-range" />
@@ -99,7 +100,7 @@ export const PricingAssistantModule = {
           <!-- 4. Transport -->
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">🚚 Transport / Freight (स्थानीय भाड़ा)</label>
+              <label class="slider-label">${isHindi ? '🚚 परिवहन व भाड़ा' : '🚚 Transport & Freight'}</label>
               <span class="slider-value" id="val-transport">₹${this.priceState.transportCost}</span>
             </div>
             <input type="range" id="slider-transport" min="0" max="500" step="10" value="${this.priceState.transportCost}" class="custom-range" />
@@ -108,7 +109,7 @@ export const PricingAssistantModule = {
           <!-- 5. Overhead Cost (New Required Field) -->
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">💡 Overhead Cost (बिजली, पानी, औजार घिसावट)</label>
+              <label class="slider-label">${isHindi ? '💡 बिजली, पानी व औजार घिसावट' : '💡 Overhead Cost'}</label>
               <span class="slider-value" id="val-overhead">₹${this.priceState.overheadCost}</span>
             </div>
             <input type="range" id="slider-overhead" min="0" max="400" step="10" value="${this.priceState.overheadCost}" class="custom-range" />
@@ -119,7 +120,7 @@ export const PricingAssistantModule = {
           <!-- Margins & Bulk Discounts (New Required Fields) -->
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">📈 Desired Retail Profit Margin (%)</label>
+              <label class="slider-label">${isHindi ? '📈 खुदरा लाभ मार्जिन (%)' : '📈 Desired Retail Profit Margin (%)'}</label>
               <span class="slider-value" id="val-margin">${this.priceState.desiredProfitMargin}%</span>
             </div>
             <input type="range" id="slider-margin" min="5" max="100" step="5" value="${this.priceState.desiredProfitMargin}" class="custom-range" />
@@ -127,7 +128,7 @@ export const PricingAssistantModule = {
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">🏢 Wholesale B2B Margin (%)</label>
+              <label class="slider-label">${isHindi ? '🏢 थोक (B2B) मार्जिन (%)' : '🏢 Wholesale B2B Margin (%)'}</label>
               <span class="slider-value" id="val-wholesale-margin">${this.priceState.wholesaleMargin}%</span>
             </div>
             <input type="range" id="slider-wholesale-margin" min="5" max="60" step="5" value="${this.priceState.wholesaleMargin}" class="custom-range" />
@@ -135,7 +136,7 @@ export const PricingAssistantModule = {
 
           <div class="slider-group">
             <div class="slider-header">
-              <label class="slider-label">📦 Bulk Order (>20 pcs) Discount (%)</label>
+              <label class="slider-label">${isHindi ? '📦 थोक ऑर्डर छूट (%)' : '📦 Bulk Order (>20 pcs) Discount (%)'}</label>
               <span class="slider-value" id="val-bulk-discount">${this.priceState.bulkOrderDiscount}%</span>
             </div>
             <input type="range" id="slider-bulk-discount" min="0" max="35" step="5" value="${this.priceState.bulkOrderDiscount}" class="custom-range" />
@@ -144,13 +145,13 @@ export const PricingAssistantModule = {
           <!-- Total Calculation Dashboard Card -->
           <div class="pricing-summary-box mt-3">
             <div class="summary-line">
-              <span>Minimum Safe Price (न्यूनतम सुरक्षित लागत):</span>
+              <span>${isHindi ? 'न्यूनतम सुरक्षित लागत:' : 'Minimum Safe Price:'}</span>
               <strong id="total-base-cost">₹${calc.minimumSafePrice}</strong>
             </div>
 
             <!-- Suggested Retail Range -->
             <div class="suggested-price-highlight">
-              <p class="highlight-label">Suggested Retail Price (खुदरा दाम):</p>
+              <p class="highlight-label">${isHindi ? 'सुझाया गया खुदरा दाम:' : 'Suggested Retail Price:'}</p>
               <h2 class="highlight-price" id="final-suggested-price">₹${calc.suggestedRetailPrice}</h2>
               <p class="highlight-range" id="price-range-text">
                 Suggested range only: ₹${calc.retailRange.min} – ₹${calc.retailRange.max}
@@ -173,7 +174,7 @@ export const PricingAssistantModule = {
 
             <!-- Custom Final Price Override (Artisan Controls Final Decision) -->
             <div class="form-group mt-3">
-              <label class="form-label font-bold">Your Final Chosen Price (आपका अंतिम निर्धारित मूल्य - ₹):</label>
+              <label class="form-label font-bold">${isHindi ? 'आपका अंतिम निर्धारित मूल्य (₹):' : 'Your Final Chosen Price (₹):'}</label>
               <input type="number" id="artisan-final-price" value="${this.priceState.finalArtisanPrice}" class="form-control text-center font-bold text-lg" />
             </div>
 

@@ -108,7 +108,7 @@ export const SettingsModule = {
             <label class="role-radio-label">
               <input type="radio" name="userRole" value="artisan" ${appState.get('userRole') !== 'facilitator' ? 'checked' : ''} />
               <div>
-                <strong>Artisan / Kaarigar (कारीगर मोड)</strong>
+                <strong>Artisan / Kaarigar</strong>
                 <p class="text-xs text-muted">Standard voice cataloging, fair pricing, and sales.</p>
               </div>
             </label>
@@ -116,7 +116,7 @@ export const SettingsModule = {
             <label class="role-radio-label mt-2">
               <input type="radio" name="userRole" value="facilitator" ${appState.get('userRole') === 'facilitator' ? 'checked' : ''} />
               <div>
-                <strong>Cluster Facilitator / NGO Leader (सहायता डेस्क)</strong>
+                <strong>Cluster Facilitator / NGO Leader</strong>
                 <p class="text-xs text-muted">Review queue, claim proof verification, multi-artisan support dashboard.</p>
               </div>
             </label>
@@ -163,10 +163,14 @@ export const SettingsModule = {
     document.querySelectorAll('.btn-lang').forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.getAttribute('data-lang');
+        localStorage.setItem('kalasetu_lang', lang);
         appState.set('language', lang);
         const msg = langGreetings[lang] || `Language set to ${lang.toUpperCase()}`;
         appState.showToast(msg, 'success');
-        voiceService.speak(msg);
+        // Auto refresh page so all modules and UI immediately reload in chosen language
+        setTimeout(() => {
+          window.location.reload();
+        }, 350);
       });
     });
 

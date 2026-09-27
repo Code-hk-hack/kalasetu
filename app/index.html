@@ -28,7 +28,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700;800&family=Noto+Sans+Oriya:wght@400;600;700;800&family=Noto+Sans+Tamil:wght@400;600;700;800&family=Noto+Sans+Telugu:wght@400;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <link rel="stylesheet" href="./styles.css?v=8">
+  <link rel="stylesheet" href="./styles.css?v=9">
 </head>
 <body>
 
@@ -53,7 +53,7 @@
           <span>Portal</span>
         </a>
         <button class="btn-lang-toggle" id="btn-lang-toggle" aria-label="Toggle between Hindi and English">
-          <span id="lang-toggle-text">हिन्दी</span>
+          <span id="lang-toggle-text">English</span>
         </button>
       </div>
     </header>
@@ -201,9 +201,13 @@
       }
     }
 
-    // 6. Bind Quick Language Button - opens Settings module for 9-language selector
+    // 6. Bind Quick Language Button - 1-tap toggles between English and Hindi with auto-refresh
     langToggleBtn.addEventListener('click', () => {
-      switchTab('settings');
+      const current = appState.get('language') || 'en';
+      const nextLang = current === 'en' ? 'hi' : 'en';
+      localStorage.setItem('kalasetu_lang', nextLang);
+      appState.set('language', nextLang);
+      window.location.reload();
     });
 
     // 7. Subscribe to AppState Events

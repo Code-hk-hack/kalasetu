@@ -204,11 +204,20 @@ export const MarketShowcaseModule = {
             </p>
 
             <!-- Dropzone & File Input -->
+            <input type="file" id="reels-camera-input" accept="image/*" capture="environment" style="display:none;" />
             <input type="file" id="reels-file-input" accept="image/*" style="display:none;" />
             <div class="reels-upload-box" id="reels-upload-box" tabindex="0" role="button">
               <span class="upload-icon">📱</span>
               <p id="reels-dropzone-label"><strong>${t('reelsDropzoneText', 'Drop social media screenshot or tap to upload')}</strong></p>
               <span class="text-xs text-muted">Client-side 64-D visual feature extraction (sub-200ms)</span>
+              <div class="reels-camera-actions mt-2" style="display:flex; gap:8px; justify-content:center; width:100%; max-width:280px; margin: 8px auto 0;">
+                <button type="button" class="btn btn-sm btn-primary" id="btn-reels-camera" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:4px; font-weight:700;">
+                  📷 <span>Open Camera</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" id="btn-reels-upload" style="flex:1; display:inline-flex; align-items:center; justify-content:center; gap:4px; font-weight:700;">
+                  📁 <span>Upload Photo</span>
+                </button>
+              </div>
             </div>
 
             <!-- 1-Tap Sample Reel Presets -->
@@ -328,7 +337,7 @@ export const MarketShowcaseModule = {
             <div class="geofence-action-bar">
               <button class="btn btn-primary btn-block" id="btn-start-dispatch-sim">
                 <span>🚀</span>
-                <span id="sim-btn-text">Start Uber-Style Courier Dispatch (लाइव सिमुलेशन)</span>
+                <span id="sim-btn-text">Start Uber-Style Courier Dispatch</span>
               </button>
               <div class="geofence-secondary-actions">
                 <button class="btn btn-outline btn-sm" id="btn-device-gps">
@@ -478,6 +487,9 @@ export const MarketShowcaseModule = {
 
     // 6. Vector-Powered Reels Search & Matching
     const reelsFileInput = document.getElementById('reels-file-input');
+    const reelsCameraInput = document.getElementById('reels-camera-input');
+    const btnReelsCamera = document.getElementById('btn-reels-camera');
+    const btnReelsUpload = document.getElementById('btn-reels-upload');
     const reelsUploadBox = document.getElementById('reels-upload-box');
     const reelsTextPrompt = document.getElementById('reels-text-prompt');
     const btnVectorSearch = document.getElementById('btn-vector-search');
@@ -486,14 +498,7 @@ export const MarketShowcaseModule = {
     const pgvectorContent = document.getElementById('pgvector-sql-content');
     const btnCopySQL = document.getElementById('btn-copy-pgvector-sql');
 
-    // Trigger file chooser on dropzone click
-    reelsUploadBox?.addEventListener('click', () => {
-      reelsFileInput?.click();
-    });
-
-    // File input change: Extract image feature vector & match
-    reelsFileInput?.addEventListener('change', async (e) => {
-      const file = e.target.files?.[0];
+    const handleReelsFile = (file) => {
       if (!file) return;
 
       const reader = new FileReader();
@@ -507,6 +512,28 @@ export const MarketShowcaseModule = {
         img.src = event.target.result;
       };
       reader.readAsDataURL(file);
+    };
+
+    reelsFileInput?.addEventListener('change', (e) => handleReelsFile(e.target.files?.[0]));
+    reelsCameraInput?.addEventListener('change', (e) => handleReelsFile(e.target.files?.[0]));
+
+    btnReelsCamera?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      reelsCameraInput?.click();
+    });
+
+    btnReelsUpload?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      reelsFileInput?.click();
+    });
+
+    // Trigger file chooser on dropzone click
+    reelsUploadBox?.addEventListener('click', () => {
+      if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        reelsCameraInput?.click();
+      } else {
+        reelsFileInput?.click();
+      }
     });
 
     // 1-Tap preset chips
@@ -773,7 +800,7 @@ export const MarketShowcaseModule = {
     if (this.simInterval) {
       clearInterval(this.simInterval);
       this.simInterval = null;
-      if (btnText) btnText.textContent = 'Resume Courier Dispatch (सिमुलेशन जारी रखें)';
+      if (btnText) btnText.textContent = 'Resume Courier Dispatch';
       appState.showToast('Dispatch simulation paused', 'info');
       return;
     }
@@ -782,7 +809,7 @@ export const MarketShowcaseModule = {
       this.currentSimStep = 0;
     }
 
-    if (btnText) btnText.textContent = 'Pause Courier Dispatch (सिमुलेशन रोकें)';
+    if (btnText) btnText.textContent = 'Pause Courier Dispatch';
     appState.showToast('Live courier transit underway...', 'info');
 
     let previousZone = 'outside';
@@ -793,7 +820,7 @@ export const MarketShowcaseModule = {
       if (this.currentSimStep >= this.waypoints.length) {
         clearInterval(this.simInterval);
         this.simInterval = null;
-        if (btnText) btnText.textContent = 'Start Uber-Style Courier Dispatch (लाइव सिमुलेशन)';
+        if (btnText) btnText.textContent = 'Start Uber-Style Courier Dispatch';
         geofenceService.playChime('doorstep');
         appState.showToast('🏆 Handshake OTP 8492 Verified! Order Successfully Delivered.', 'success');
         this.addTimelineEvent(`🔑 11:24 AM: Handshake OTP 8492 verified at Buyer Doorstep.`);
@@ -839,7 +866,7 @@ export const MarketShowcaseModule = {
     this.currentSimStep = 0;
     this.updateTelemetryAtStep(0);
     const btnText = document.getElementById('sim-btn-text');
-    if (btnText) btnText.textContent = 'Start Uber-Style Courier Dispatch (लाइव सिमुलेशन)';
+    if (btnText) btnText.textContent = 'Start Uber-Style Courier Dispatch';
     appState.showToast('Route reset to Bagru GI Cluster origin', 'info');
   },
 
