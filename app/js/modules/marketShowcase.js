@@ -66,23 +66,36 @@ export const MarketShowcaseModule = {
 
     this.container.innerHTML = `
       <div class="module-wrapper animate-fade-in">
-        <!-- Sub-nav pills -->
-        <div class="subnav-pill-row">
-          <button class="pill-btn active" id="btn-tab-catalog">
-            🛍️ ${t('artisanCatalogTab', 'Artisan Catalog')}
-          </button>
-          <button class="pill-btn" id="btn-tab-passport">
-            🛂 ${t('passportTab', 'Product Passport')}
-          </button>
-          <button class="pill-btn" id="btn-tab-stager">
-            🏡 ${t('aiSpaceStagerTab', 'AI Space Stager')}
-          </button>
-          <button class="pill-btn" id="btn-tab-reels">
-            🔍 ${t('reelsToArtisanTab', 'Reels-to-Artisan')}
-          </button>
-          <button class="pill-btn" id="btn-tab-geofence">
-            📍 ${t('geofenceDeliveryTab', 'Geofence Dispatch')}
-          </button>
+        <!-- Multi-Feature Innovation Hub Navigation (100% visible, zero horizontal scrollbar) -->
+        <div class="features-hub-nav">
+          <div class="features-hub-header">
+            <span class="features-hub-label">✨ <strong>Core Platform Features</strong></span>
+            <span class="features-hub-count">5 Live Modules</span>
+          </div>
+          <div class="subnav-pill-row">
+            <button class="pill-btn active" id="btn-tab-catalog" title="Artisan Digital Storefront & Catalog">
+              <span class="pill-icon">🛍️</span>
+              <span class="pill-text">${t('artisanCatalogTab', 'Artisan Catalog')}</span>
+            </button>
+            <button class="pill-btn" id="btn-tab-passport" title="Verifiable Provenance & QR Product Passport">
+              <span class="pill-icon">🛂</span>
+              <span class="pill-text">${t('passportTab', 'Product Passport')}</span>
+            </button>
+            <button class="pill-btn" id="btn-tab-stager" title="AI Room Decor Space Stager">
+              <span class="pill-icon">🏡</span>
+              <span class="pill-text">${t('aiSpaceStagerTab', 'AI Space Stager')}</span>
+            </button>
+            <button class="pill-btn" id="btn-tab-reels" title="Reels-to-Artisan Reverse Vector Search">
+              <span class="pill-icon">🔍</span>
+              <span class="pill-text">${t('reelsToArtisanTab', 'Reels Matcher')}</span>
+              <span class="pill-badge">AI</span>
+            </button>
+            <button class="pill-btn pill-btn-wide" id="btn-tab-geofence" title="Uber/Ola Style Smart Geofence Dispatch Hub">
+              <span class="pill-icon">📍</span>
+              <span class="pill-text">${t('geofenceDeliveryTab', 'Smart Geofence Dispatch')}</span>
+              <span class="pill-badge live">Live Radar</span>
+            </button>
+          </div>
         </div>
 
         <!-- 1. Catalog Grid View -->
