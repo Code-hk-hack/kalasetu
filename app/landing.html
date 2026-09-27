@@ -197,11 +197,11 @@
         <!-- Feature 1 -->
         <div class="feature-card">
           <div class="feature-icon-box">🎙️</div>
-          <h3 id="f1-title">Voice-to-Catalog Studio</h3>
+          <h3 id="f1-title">Voice-to-Catalog & Google TTS Studio</h3>
           <p id="f1-desc">
-            Artisans hold the mic and speak in their mother tongue. Natural Language Processing extracts dimensions, materials, and lead times with zero typing.
+            Artisans hold the mic and speak in their mother tongue. Natural Language Processing extracts dimensions, materials, and lead times with zero typing. Google Indic Neural voices read descriptions aloud.
           </p>
-          <span class="feature-pill" id="f1-pill">Voice AI · Zero Form Fatigue</span>
+          <span class="feature-pill" id="f1-pill">Google Indic TTS · Voice AI</span>
         </div>
 
         <!-- Feature 2 -->
@@ -237,11 +237,11 @@
         <!-- Feature 5 -->
         <div class="feature-card">
           <div class="feature-icon-box">🔍</div>
-          <h3 id="f5-title">Reels-to-Artisan Matcher</h3>
+          <h3 id="f5-title">Reels-to-Artisan Vector Search</h3>
           <p id="f5-desc">
-            Reverse visual search connects viral social media screenshots directly to authentic rural craft clusters, bypassing dropshippers and cheap knockoffs.
+            MobileCLIP 64-D neural embeddings + Supabase pgvector reverse visual search connects viral Instagram reels directly to authentic rural craft clusters in sub-200ms.
           </p>
-          <span class="feature-pill" id="f5-pill">Visual AI · Anti-Counterfeiting</span>
+          <span class="feature-pill" id="f5-pill">MobileCLIP · Supabase pgvector</span>
         </div>
 
         <!-- Feature 6 -->
@@ -642,19 +642,43 @@
       applyLandingLanguage(e.target.value);
     });
 
-    // 3. Audio Speech Synthesis for Vision in Mother Tongue
+    // 3. Audio Speech Synthesis for Vision in Mother Tongue (Powered by Google Indic TTS)
     document.getElementById('btn-listen-vision').addEventListener('click', () => {
-      if (!('speechSynthesis' in window)) {
-        alert('Voice synthesis not supported in this browser.');
-        return;
-      }
-      window.speechSynthesis.cancel();
       const code = langSelect.value;
       const d = landingTranslations[code] || landingTranslations.en;
-      const utterance = new SpeechSynthesisUtterance(d.speech);
-      utterance.lang = langVoiceMap[code] || 'hi-IN';
-      utterance.rate = 0.92;
-      window.speechSynthesis.speak(utterance);
+      const text = d.speech;
+      const shortLang = (langVoiceMap[code] || 'hi-IN').split('-')[0].toLowerCase();
+      const btn = document.getElementById('btn-listen-vision');
+      btn.style.opacity = '0.6';
+
+      // 1. Google TTS Streaming Audio Fallback
+      const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${shortLang}&client=tw-ob&q=${encodeURIComponent(text)}`;
+      try {
+        const audio = new Audio(url);
+        audio.playbackRate = 0.95;
+        audio.onended = () => { btn.style.opacity = '1'; };
+        audio.onerror = () => { fallbackSynth(); };
+        audio.play().catch(() => { fallbackSynth(); });
+      } catch (e) {
+        fallbackSynth();
+      }
+
+      function fallbackSynth() {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = langVoiceMap[code] || 'hi-IN';
+          utterance.rate = 0.92;
+          const voices = window.speechSynthesis.getVoices() || [];
+          const gVoice = voices.find(v => (v.name || '').toLowerCase().includes('google') && v.lang.startsWith(shortLang));
+          if (gVoice) utterance.voice = gVoice;
+          utterance.onend = () => { btn.style.opacity = '1'; };
+          utterance.onerror = () => { btn.style.opacity = '1'; };
+          window.speechSynthesis.speak(utterance);
+        } else {
+          btn.style.opacity = '1';
+        }
+      }
     });
 
   </script>

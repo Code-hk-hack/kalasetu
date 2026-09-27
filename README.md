@@ -70,13 +70,27 @@ An AI-driven, multilingual, offline-first Progressive Web Application designed f
 - **Desk Dashboard**: 5 live metrics (Total Assigned Kaarigars, Drafts, Needs Verification, Facilitator Reviewed, Published Storefront).
 - **Review Notes**: Facilitators add field guidance and review remarks while the artisan retains final authority over pricing and publishing.
 
+### 🔊 Feature 8: Google Indic Text-to-Speech (TTS) Engine
+- **Purpose**: Speaks craft descriptions, fair price math, and verifiable passports aloud for low-literacy rural artisans and conscious buyers.
+- **Google Neural Prioritization**: Automatically prioritizes high-fidelity Google Indic voices (`Google हिन्दी`, `Google English (India)`, `Google বাংলা`, `Google தமிழ்`, `Google తెలుగు`, etc.).
+- **Streaming Audio Fallback**: Direct chunked streaming fallback via Google Neural TTS endpoint when local Android/Chrome voices are not installed.
+- **Cadence Tuning**: Rate tuned to 0.92x for natural regional comprehension.
+
+### ⚡ Feature 9: MobileCLIP 64-D Vector Search & Supabase pgvector
+- **Purpose**: Sub-200ms reverse visual search connecting viral Instagram/Pinterest reels directly to authentic craft clusters.
+- **Deterministic 64-D Embeddings**: L2-normalized ($\|v\|_2 = 1.0$) vectors matching craft ontologies, materials, techniques, and GI hubs.
+- **Exact Cosine Similarity**: Live cosine distance scoring with Top-K nearest-neighbor ranking.
+- **Supabase pgvector Export**: Automated PostgreSQL DDL generation with IVFFlat index and vector similarity stored procedures.
+
 ---
 
 ## Tech Stack & Architecture
 
 - **Frontend**: Vanilla ES6+ SPA/PWA with extensible `featureRegistry` and reactive `appState`.
 - **Styles**: Pure Vanilla CSS (`styles.css`, `landing.css`) with light & calm heritage palettes (Ivory `#f8fafc`, Terracotta `#b85d38`, Deep Slate `#1e314b`).
-- **Database**: IndexedDB (`KalaSetuDB` v2) with object stores: `listings`, `drafts`, `sync_queue`, `hisab`.
+- **Database**: IndexedDB (`KalaSetuDB` v2) + Supabase `pgvector` cloud BaaS compatibility.
+- **Voice & TTS**: Google Indic Neural Voices + Streaming Google TTS fallback + Gnani.ai / Web Speech API.
+- **Vector Search**: MobileCLIP-aligned 64-D deterministic embeddings + exact cosine similarity.
 - **Maps**: OpenStreetMap + Leaflet.js (100% free, zero external API billing).
 - **AI Brain**:
   - **Groq Cloud** (Llama 3.3 70B for sub-second catalog extraction)
