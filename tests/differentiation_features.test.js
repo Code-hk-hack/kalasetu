@@ -17,6 +17,15 @@ import { FairPriceGuard } from '../app/js/core/fairPriceGuard.js';
 import { CraftTemplateService, CRAFT_TEMPLATES } from '../app/js/core/craftTemplates.js';
 import { ProductPassportService } from '../app/js/core/productPassportService.js';
 import { ImageSafetyService } from '../app/js/core/imageSafetyService.js';
+import { splitTextForTTS, formatGoogleTTSUrl, selectBestGoogleVoice } from '../app/js/core/voiceService.js';
+import { 
+  cosineSimilarity, 
+  l2Normalize, 
+  generateTextEmbedding, 
+  generateImageVector, 
+  VectorStore, 
+  vectorService 
+} from '../app/js/core/vectorService.js';
 
 // =========================================================================
 // 1. RISKY CLAIM DETECTION TESTS
@@ -280,3 +289,98 @@ test('Feature 6: Conflict management logic creates recoverable conflict copies w
   assert.strictEqual(mockStore.size, 2, 'Conflict copy must be preserved alongside original');
   assert.ok(mockStore.get(999).isConflictCopy, 'Conflict copy must retain identifiable metadata');
 });
+
+// =========================================================================
+// 8. GOOGLE TTS ENGINE TESTS
+// =========================================================================
+test('Feature 7: Google TTS engine splits text, formats streaming URLs, and prioritizes Indic voices', () => {
+  // 1. Sentence chunk splitting test
+  const sampleLongText = 'यह बगरू की प्राकृतिक छपाई का दुपट्टा है। इसमें चार पीढ़ियों की कारीगरी समाहित है। शुद्ध सूती कपड़े पर नील का असली रंग चढ़ा है। उचित मूल्य पर सीधे कारीगर से खरीदें।';
+  const chunks = splitTextForTTS(sampleLongText, 80);
+
+  assert.ok(chunks.length >= 2, 'Must break long regional sentences into smaller manageable chunks');
+  chunks.forEach(c => {
+    assert.ok(c.length <= 80, `Chunk length (${c.length}) must be <= 80 chars`);
+  });
+
+  // 2. Google Translate / Cloud streaming TTS URL generation
+  const ttsUrl = formatGoogleTTSUrl('नमस्ते कारीगर', 'hi-IN');
+  assert.ok(ttsUrl.startsWith('https://translate.google.com/translate_tts'), 'Must format valid Google TTS URL');
+  assert.ok(ttsUrl.includes('tl=hi'), 'Must set language parameter to short code hi');
+  assert.ok(ttsUrl.includes('client=tw-ob'), 'Must include Google TTS client token');
+  assert.ok(ttsUrl.includes(encodeURIComponent('नमस्ते कारीगर')), 'Must properly URI-encode Indic Unicode text');
+
+  // 3. Priority selection of Google Indic voices over generic browser synthesizers
+  const mockVoices = [
+    { name: 'Microsoft David Desktop - English (United States)', lang: 'en-US', default: true },
+    { name: 'Hindi India System Voice', lang: 'hi-IN', default: false },
+    { name: 'Google हिन्दी', lang: 'hi-IN', default: false },
+    { name: 'Google English (India)', lang: 'en-IN', default: false }
+  ];
+
+  const selectedHindiVoice = selectBestGoogleVoice(mockVoices, 'hi-IN');
+  assert.strictEqual(selectedHindiVoice.name, 'Google हिन्दी', 'Must prioritize Google Indic Neural voice');
+
+  const selectedEnglishVoice = selectBestGoogleVoice(mockVoices, 'en-IN');
+  assert.strictEqual(selectedEnglishVoice.name, 'Google English (India)', 'Must prioritize Google English (India) voice');
+});
+
+// =========================================================================
+// 9. VECTOR SEARCH & COSINE SIMILARITY ENGINE TESTS
+// =========================================================================
+test('Feature 8: Vector Engine generates L2-normalized 64-D embeddings and computes exact cosine similarity', () => {
+  // 1. Math verification: Cosine similarity bounds
+  const vecX = [1, 0, 0, 0];
+  const vecY = [0, 1, 0, 0];
+  const vecNegX = [-1, 0, 0, 0];
+
+  assert.strictEqual(cosineSimilarity(vecX, vecX), 1.0, 'Identical vectors must yield exact 1.0 cosine similarity');
+  assert.strictEqual(cosineSimilarity(vecX, vecY), 0.0, 'Orthogonal vectors must yield 0.0 cosine similarity');
+  assert.strictEqual(cosineSimilarity(vecX, vecNegX), -1.0, 'Opposite vectors must yield -1.0 cosine similarity');
+
+  // 2. 64-D Semantic text embedding generation
+  const embedding = generateTextEmbedding('Bagru hand-block printed indigo dupatta');
+  assert.strictEqual(embedding.length, 64, 'Embedding must have exactly 64 dimensions');
+
+  // Verify L2 unit normalization: ||v|| = sqrt(sum(v_i^2)) == 1.0
+  let sumSq = 0;
+  for (let i = 0; i < embedding.length; i++) sumSq += embedding[i] * embedding[i];
+  const norm = Math.sqrt(sumSq);
+  assert.ok(Math.abs(norm - 1.0) < 1e-4, `L2 norm must equal 1.0 (actual: ${norm})`);
+
+  // Verify domain-aware craft weights boost semantic similarity
+  const bagruQueryVec = generateTextEmbedding('natural indigo vegetable dye block print');
+  const potteryQueryVec = generateTextEmbedding('jaipur blue pottery ceramic quartz floral vase');
+
+  const bagruDocVec = generateTextEmbedding('Authentic Bagru GI tagged dabu resist hand-block printed cotton dupatta with vegetable indigo dye');
+  const potteryDocVec = generateTextEmbedding('Traditional Jaipur Blue Pottery decorative tabletop vase made without clay using ground quartz');
+
+  const bagruToBagruSim = cosineSimilarity(bagruQueryVec, bagruDocVec);
+  const bagruToPotterySim = cosineSimilarity(bagruQueryVec, potteryDocVec);
+
+  assert.ok(bagruToBagruSim > bagruToPotterySim, `Bagru query must score higher on Bagru document (${bagruToBagruSim.toFixed(3)}) than Pottery document (${bagruToPotterySim.toFixed(3)})`);
+});
+
+test('Feature 8: VectorStore performs accurate Top-K nearest-neighbor ranking and exportPgVectorSQL generates valid Supabase schema', () => {
+  const store = new VectorStore(64);
+
+  // 1. Query matching Bagru Dupatta
+  const resultsBagru = store.search('indigo block print dupatta from bagru', { topK: 3 });
+  assert.ok(resultsBagru.length > 0, 'Vector search must return matches');
+  assert.strictEqual(resultsBagru[0].id, 'craft-bagru-dupatta', 'Top result for indigo block print must be Bagru Dupatta');
+  assert.ok(resultsBagru[0].score > 0.6, `Top match score must be > 0.6 (actual: ${resultsBagru[0].score})`);
+  assert.ok(resultsBagru[0].percentage.includes('%'), 'Match percentage must be formatted');
+
+  // 2. Query matching Blue Pottery
+  const resultsPottery = store.search('blue pottery turquoise quartz vase', { topK: 3 });
+  assert.strictEqual(resultsPottery[0].id, 'craft-jaipur-blue-pottery', 'Top result for blue pottery vase must be Jaipur Blue Pottery');
+
+  // 3. Supabase pgvector SQL export validation
+  const sql = store.exportPgVectorSQL('craft_embeddings');
+  assert.ok(sql.includes('CREATE EXTENSION IF NOT EXISTS vector;'), 'SQL must enable pgvector extension');
+  assert.ok(sql.includes('embedding vector(64)'), 'SQL table must define 64-dimensional vector column');
+  assert.ok(sql.includes('USING ivfflat (embedding vector_cosine_ops)'), 'SQL must create IVFFlat cosine distance index');
+  assert.ok(sql.includes('CREATE OR REPLACE FUNCTION match_craft_embeddings'), 'SQL must define vector similarity stored procedure');
+  assert.ok(sql.includes('INSERT INTO craft_embeddings'), 'SQL must include seed batch vector insertions');
+});
+

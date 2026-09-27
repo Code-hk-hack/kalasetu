@@ -127,6 +127,9 @@ export class ProductPassportService {
             <button class="btn btn-sm btn-primary btn-copy-passport" data-url="${passport.shareUrl}">
               📋 Copy Passport Link
             </button>
+            <button class="btn btn-sm btn-outline btn-passport-tts" style="margin-left: 6px;" title="Listen to verified provenance in Regional voice">
+              🔊 Google TTS
+            </button>
           </div>
         </div>
       </div>
